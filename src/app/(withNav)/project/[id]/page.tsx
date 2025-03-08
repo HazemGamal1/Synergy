@@ -66,7 +66,7 @@ export default function ProjectPage({ params }: PageProps) {
 
   const copyToClipboard = async () => {
     try {
-      setClipboard(`localhost:3000${pathname}`)
+      setClipboard(`https://synergy-io.vercel.app${pathname}`)
       setCopied(true);
       setTimeout(() => setCopied(false), 2000); 
     } catch (err) {
