@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import Project from "../../../../../../models/Project";
+import { NextResponse } from "next/server";
+import Project from "../../../../../models/Project";
 
-
-export async function GET(request: NextRequest, { params }: { params: { userId : string }}){
+export async function GET(request: Request){
     try{
-        const { userId } = await params;
+        const { searchParams } = new URL(request.url);
+        const userId = searchParams.get("userId");
         const projects = await Project.find({ ownerId: userId})
         
         return NextResponse.json( projects, { status: 200 });

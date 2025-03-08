@@ -3,17 +3,22 @@ import React, { useEffect, useState } from 'react'
 import { ITeam } from '../../../../../models/Team';
 import SpinnerLoading from '@/components/SpinnerLoading';
 import Link from 'next/link';
+import { PageProps } from '../../../../../.next/types/app/(withNav)/team/[id]/page';
 
-const Team = ({ params } : { params: { id : string }}) => {
+const Team = ({ params } : PageProps ) => {
     const [team, setTeam] = useState<ITeam>();
 
     useEffect(() => {
         const getTeam = async () => {
             const { id } = await params;
-            const res = await fetch(`/api/get-team/${id}`)
+            const res = await fetch(`/api/get-team?id=${id}`, {
+                method: "GET",
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+            })
             const data = await res.json();
             setTeam(data);
-            console.log(data);
         }
         getTeam()
     }, [])
@@ -23,7 +28,7 @@ const Team = ({ params } : { params: { id : string }}) => {
     <div>
         <section className='p-4 border-t'>
                 <h3 className='text-muted-foreground'>Members</h3>
-                <div className='grid grid-cols-4 gap-2'>
+                <div className='grid grid-cols-2 lg:grid-cols-4 gap-2'>
                     {
                         team?.members.map((member, idx) => (
                             <Link href={`/user/${member.username}`} key={idx} className='flex bg-[#1a1a1a] flex-col gap-3 h-[10rem] justify-center rounded-lg text-center mt-3 px-1 py-2 dark:hover:bg-[#1c1c1c] duration-300'>

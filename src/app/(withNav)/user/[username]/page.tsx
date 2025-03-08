@@ -9,14 +9,14 @@ import InvitationButton from "@/components/Invitations/InvitationButton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IProject } from "../../../../../models/Project"
 import ProjectCard from "@/components/projects/ProjectCard"
+import { PageProps } from "../../../../../.next/types/app/(withNav)/user/[username]/page"
 
 
-const User = ({ params }: { params : { username : string }}) => {
+const User = ({ params }: PageProps) => {
   const [user, setUser] = useState<IUser>();
   const [projects, setProjects] = useState<IProject[]>([])
   const [projectIsLoading, setProjectIsLoading] = useState<boolean>(false);
   const [invVisible, setInvVisisble] = useState<boolean>(true);
-  let userId : string = "";
   useEffect(() => {
     const getUser = async () => {
       setProjectIsLoading(true);
@@ -35,10 +35,9 @@ const User = ({ params }: { params : { username : string }}) => {
         else if(dataUser.user.username === username){
           setInvVisisble(false);
         }
-        const res = await fetch(`/api/user/${username}`);
+        const res = await fetch(`/api/user?username=${username}`);
         const data = await res.json();
         setUser(data);      
-        userId = user!._id.toString();
         const { _id } = data;
         const projectRes = await fetch(`/api/projects/get-project-from-id/${_id}`);
         const projectData = await projectRes.json();
@@ -59,7 +58,7 @@ const User = ({ params }: { params : { username : string }}) => {
             {
               (invVisible) && 
               <>
-                <InvitationButton inviteeId={userId} inviteeUsername={user.username} />
+                <InvitationButton inviteeId={user._id.toString()} inviteeUsername={user.username} />
               </>
             }
           </Avatar>

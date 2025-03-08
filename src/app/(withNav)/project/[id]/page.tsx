@@ -15,6 +15,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import WhatsappIcon from "../../../../../public/whatsapp-color-icon.png"
 import DiscordIcon from "../../../../../public/discord-round-color-icon.png"
 import Image from 'next/image'
+import { PageProps } from '../../../../../.next/types/app/(withNav)/page';
 
 interface IUser {
   userId: string,
@@ -53,7 +54,7 @@ interface IIProject {
   participants: IParticipant[]
 }
 
-export default function ProjectPage({ params }: { params : { id: string }}) {
+export default function ProjectPage({ params }: PageProps) {
   const [user, setUser] = useState<IUser>();
   const [copied, setCopied] = useState(false);
   const [commentText, setCommentText] = useState("")
@@ -123,7 +124,7 @@ export default function ProjectPage({ params }: { params : { id: string }}) {
     const getPost = async () => {
       try{
         const { id } = await params;
-        const res = await fetch(`/api/projects/project/${id}`);
+        const res = await fetch(`/api/projects/project?id=${id}`);
         const data = await res.json();
         setProject(data);
         setLikes(data.likes.length)

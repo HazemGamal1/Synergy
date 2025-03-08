@@ -1,12 +1,13 @@
 // /app/api/users/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { connectDb } from '@/lib/mongoose';
-import User from '../../../../../../models/User';
+import User from '../../../../../models/User';
 
-export async function GET(req: NextRequest, { params } : { params : { username: string }}) {
+export async function GET(req: Request) {
     try {
         await connectDb();
-        const { username } = await params
+        const { searchParams } = new URL(req.url);
+        const username = searchParams.get("username");
         const user = await User.findOne({ username });
         if(!user){
             return NextResponse.json({ message: "User was not found."}, { status: 404 });

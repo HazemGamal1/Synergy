@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import Project from "../../../../../../models/Project";
+import Project from "../../../../../models/Project";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request) {
     try {
-        const { id } = await params;
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
 
         try{
 

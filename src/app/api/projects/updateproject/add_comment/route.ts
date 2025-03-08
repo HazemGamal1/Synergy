@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import Project from "../../../../../../../models/Project";
+import Project from "../../../../../../models/Project";
 import { connectDb } from "@/lib/mongoose";
 //@ts-expect-error no_explanation
 import jwt from "jsonwebtoken"
 
-export async function POST(request: NextRequest, { params } : { params: { id: string }}){
+export async function POST(request: NextRequest){
     try{
         await connectDb();
         const token = request.cookies.get('token')?.value;
-        const { id } = await params;
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
         if(!token){
             return NextResponse.json({ message: "Token not found"}, { status: 401})
         }

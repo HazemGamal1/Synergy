@@ -1,13 +1,13 @@
 import { connectDb } from "@/lib/mongoose";
-import { NextRequest, NextResponse } from "next/server";
-import Invitation from "../../../../../../models/Invitation";
-import Project from "../../../../../../models/Project";
+import { NextResponse } from "next/server";
+import Invitation from "../../../../../models/Invitation";
+import Project from "../../../../../models/Project";
 
-export async function GET(request: NextRequest, { params }: { params : { id: string }}){
+export async function POST(request: Request){
     try{
         await connectDb();
 
-        const { id } = await params;
+        const { id } = await request.json();
         const inv = await Invitation.findById({_id : id });
         if(!inv){
             return NextResponse.json({ message: "No invitation with this id was found"}, { status: 404});

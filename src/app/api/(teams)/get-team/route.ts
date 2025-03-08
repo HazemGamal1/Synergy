@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
-import Team from "../../../../../../models/Team";
-export async function GET(req: Request, { params } : { params: { id: string }}){
+import Team from "../../../../../models/Team";
+export async function GET(req: Request){
     try{
-        const { id } = await params;
+        const { searchParams } = new URL(req.url);
+        const id = searchParams.get("id");
         const team = await Team.findOne( { _id : id })
 
         if(!team){
