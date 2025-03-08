@@ -39,7 +39,7 @@ const User = ({ params }: PageProps) => {
         const data = await res.json();
         setUser(data);      
         const { _id } = data;
-        const projectRes = await fetch(`/api/projects/get-project-from-id?id=${_id}`);
+        const projectRes = await fetch(`/api/projects/get-project-from-id?userId=${_id}`);
         const projectData = await projectRes.json();
         setProjects(projectData);
         setProjectIsLoading(false)

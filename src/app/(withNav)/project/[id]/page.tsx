@@ -78,7 +78,7 @@ export default function ProjectPage({ params }: PageProps) {
   }
   const addNewComment = async () => {
     const { id } = await params;
-    await fetch(`/api/projects/updateproject/add_comment/${id}`, {
+    await fetch(`/api/projects/updateproject/add_comment?id=${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
