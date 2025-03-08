@@ -32,7 +32,7 @@ export default function UserProfile() {
           const data = await response.json();
           setUser(data.user);
           setProjectIsLoading(true);
-          const projectRes = await fetch(`/api/projects/get-project-from-id/${data.user.userId}`);
+          const projectRes = await fetch(`/api/projects/get-project-from-id?id=${data.user.userId}`);
           const projectData = await projectRes.json();
           setProjects(projectData);
           setProjectIsLoading(false)
