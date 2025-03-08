@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardTitle } from '../ui/card'
 import { IProject } from '../../../models/Project'
 import { BrainCircuit, Infinity, ShieldHalf, TabletSmartphone } from 'lucide-react'
 
-const ProjectCard = ({ project, custom}: { project: IProject, custom?: number }) => {
+const ProjectCard = ({ project }: { project: IProject  }) => {
   return (
     <div>
         <Link href={`/project/${project._id}`}>

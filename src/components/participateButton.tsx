@@ -21,15 +21,16 @@ export default function ParticipateButton({ requiredSkills, inviter,  inviteeId,
     const sendInvitation = async() => {
       try {
         if(project){
+          setIsLoading(true);
           const finalData = { inviteeId, inviter, inviteeUsername, type: "participationRequest", project, projectName, position: position}
-          const res = await fetch('/api/send-invitation', {
+          await fetch('/api/send-invitation', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(finalData)
           });
-          const data = await res.json();
+          setIsLoading(false);
         }else{
           console.log("user not found")
         }

@@ -1,5 +1,5 @@
 import { NextResponse , NextRequest } from "next/server";
-//@ts-ignore
+//@ts-expect-error no_explanation
 import jwt from "jsonwebtoken"
 
 export function GET(req: NextRequest) {
@@ -14,6 +14,6 @@ export function GET(req: NextRequest) {
         console.log(decoded.userId)
         return NextResponse.json({ valid: true, user: decoded}, { status: 200})
     }catch(error){
-        return NextResponse.json({ message: "Invalid token"}, { status: 401})
+        return NextResponse.json({ message: `Invalide token -> error : ${error} ` }, { status: 401})
     }
 }

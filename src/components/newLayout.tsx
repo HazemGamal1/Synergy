@@ -6,16 +6,13 @@ import { useEffect, useState } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowRight,Loader } from 'lucide-react'
 import { IProject } from "../../models/Project"
-import { IInvitation } from '../../models/Invitation'
 import ProjectCard from './projects/ProjectCard'
 
-export default function NewLayout({ username, isAuthenticated } : { username: string, isAuthenticated : boolean }) {
+export default function NewLayout({ isAuthenticated } : { isAuthenticated : boolean }) {
     const [filter, setFilter] = useState('all')
     const [projects, setProjects] = useState<IProject[]>() 
     const [isLoading, setIsLoading] = useState(false);
     const [filteredProjects, setFilteredProject] = useState<IProject[]>();
-    const [invitations, setInvitations] = useState<IInvitation[]>();
-    
       const calcMoreThanAvg = () => {
         let avg = 0;
         if(projects){
@@ -41,7 +38,6 @@ export default function NewLayout({ username, isAuthenticated } : { username: st
       }, [filter])
     
       useEffect(() => {
-        setInvitations([]);
         const handleGetProjects = async () => {
           setIsLoading(true);
           try{
@@ -49,9 +45,6 @@ export default function NewLayout({ username, isAuthenticated } : { username: st
             const data = await resp.json();
             setProjects(data);
             setFilteredProject(data);
-            const responseInv = await fetch("/api/get-invitations");
-            const dataInv = await responseInv.json();
-            setInvitations(dataInv);
           }catch(error){
             console.log(error);
           }finally{
@@ -80,7 +73,7 @@ export default function NewLayout({ username, isAuthenticated } : { username: st
                       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
                     >
                       {projects && projects.filter(project => project.likes.length > calcMoreThanAvg()).map((project, idx) => (
-                        <ProjectCard project={project} key={idx} custom={idx}/>
+                        <ProjectCard project={project} key={idx} />
                       ))}
                     </div>
                 }

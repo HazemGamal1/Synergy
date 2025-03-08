@@ -5,14 +5,11 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import logo from "../../../public/Vector.svg"
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import Image from 'next/image'
 
-const layout = ({ children }: { children : React.ReactNode}) => {
-  const [IsLoading, setIsLoading] = useState(false);
+const Layout = ({ children }: { children : React.ReactNode}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [name, setName] = useState<string>("");
-  const [username, setUserName] = useState<string>("''");
 
   const handleChangeAuth = (val : boolean) => {
     setIsAuthenticated(val)
@@ -20,7 +17,6 @@ const layout = ({ children }: { children : React.ReactNode}) => {
   useEffect(() => {
     const handleGetUserData = async () => 
       {
-          setIsLoading(true);
           const response = await fetch("/api/validate-token", {
           method : 'GET',
           headers: {
@@ -28,17 +24,10 @@ const layout = ({ children }: { children : React.ReactNode}) => {
           }
           })
       
-          const data = await response.json();
-          if(data.message === "Token not found"){
-            setName("");
-          }else {
-            setName(data.user.name);
-            setUserName(data.user.username);
-          }
+          await response.json();
           if(response.ok){
             setIsAuthenticated(true);
           }
-          setIsLoading(false);
       }
 
       handleGetUserData();
@@ -78,7 +67,7 @@ const layout = ({ children }: { children : React.ReactNode}) => {
         </div>
       </nav>
       <div className='flex min-h-screen'>
-        <SideNav username={username} isAuthenticated={isAuthenticated} onChangeAuth={handleChangeAuth}/>
+        <SideNav isAuthenticated={isAuthenticated} onChangeAuth={handleChangeAuth}/>
         <div className='dark:bg-[#090909] w-full'>
           {children}
         </div> 
@@ -87,4 +76,4 @@ const layout = ({ children }: { children : React.ReactNode}) => {
   )
 }
 
-export default layout
+export default Layout

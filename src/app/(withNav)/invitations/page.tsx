@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { IInvitation } from '../../../../models/Invitation';
 import InvitationCard from '@/components/Invitations/InvitationCard';
 import { Bot, Loader2 } from 'lucide-react';
-const page = () => {
+
+const Invitations = () => {
     const [invitations, setInvitations] = useState<IInvitation[]>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
             setInvitations([]);
-            const handleGetProjects = async () => {
+            const handleGetInvitations = async () => {
               setIsLoading(true);
               try{
                 const responseInv = await fetch("/api/get-invitations");
@@ -21,8 +22,9 @@ const page = () => {
                 setIsLoading(false)
               }
             }
-            handleGetProjects();
-          }, [])
+            handleGetInvitations();
+    }, [])
+
   return (
     <div className='p-4'>
         <p>Invitations</p>
@@ -49,4 +51,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Invitations

@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { Star, MessageSquare, Share2, ThumbsUp, Calendar, User, Ellipsis, MessageCircle, Trash, Trash2, Github, LinkIcon } from 'lucide-react'
+import { MessageSquare, Share2, ThumbsUp, Calendar, User, Ellipsis, MessageCircle, Trash2, Github, LinkIcon } from 'lucide-react'
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -52,10 +52,8 @@ interface IIProject {
   discordLink: string,
   participants: IParticipant[]
 }
-interface PageProps {
-  id: string;
-}
-function ProjectPage({ params }: { params : PageProps}) {
+
+export default function ProjectPage({ params }: { params : { id: string }}) {
   const [user, setUser] = useState<IUser>();
   const [copied, setCopied] = useState(false);
   const [commentText, setCommentText] = useState("")
@@ -79,14 +77,13 @@ function ProjectPage({ params }: { params : PageProps}) {
   }
   const addNewComment = async () => {
     const { id } = await params;
-    const res = await fetch(`/api/projects/updateproject/add_comment/${id}`, {
+    await fetch(`/api/projects/updateproject/add_comment/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ comment: commentText})
     })
-    const data = await res.json();
     setComments(prev => [...prev, {text: commentText, username: "", user: ""}])
   }
   
@@ -95,7 +92,7 @@ function ProjectPage({ params }: { params : PageProps}) {
       setLikes(project?.likes.length + 1);
     }
     const { id } = await params;
-    const res = await fetch(`/api/projects/updateproject/add-like/${id}`, {
+    await fetch(`/api/projects/updateproject/add-like/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -106,7 +103,7 @@ function ProjectPage({ params }: { params : PageProps}) {
   const deletePost = async () => {
     try{
       if(project){
-        const res = await fetch("/api/projects/delete-project", {
+        await fetch("/api/projects/delete-project", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json'
@@ -131,7 +128,7 @@ function ProjectPage({ params }: { params : PageProps}) {
         setProject(data);
         setLikes(data.likes.length)
         setComments(data.comments)
-      }catch(error: any)
+      }catch(error)
       {
         console.log(error);
       }
@@ -363,7 +360,7 @@ function ProjectPage({ params }: { params : PageProps}) {
           </CardHeader>
           <CardContent>
             <div className="w-full text-center py-12">
-              <p className="text-muted-foreground mx-auto text-lg">Couldn't find similar projects</p>
+              <p className="text-muted-foreground mx-auto text-lg">Could not find similar projects</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* {project.relatedProjects.map((relatedProject) => (
@@ -392,5 +389,3 @@ function ProjectPage({ params }: { params : PageProps}) {
     </div>
   )
 }
-
-export default ProjectPage

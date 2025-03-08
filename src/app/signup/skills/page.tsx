@@ -1,7 +1,7 @@
 import SkillSelectionPage from '@/components/skillset/Skills'
 import React from 'react'
 
-const page = () => {
+const Skills = () => {
   return (
     <div>
       <SkillSelectionPage />
@@ -9,4 +9,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Skills

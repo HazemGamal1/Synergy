@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-//@ts-ignore
+//@ts-expect-error no_explanation
 import jwt from "jsonwebtoken"
 import Project from "../../../../../models/Project";
 

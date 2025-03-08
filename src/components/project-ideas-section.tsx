@@ -3,15 +3,14 @@
 import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { ArrowBigUp, ArrowBigDown, MessageSquare, Calendar, User2 } from 'lucide-react'
 import Link from "next/link"
 import CreateProjectIdea from './projectsIdea/createProjectIdeaButton'
 import { IProjectIdea } from '../../models/ProjectIdea'
 
 export function ProjectIdeasSectionComponent() {
-  const [sortBy, setSortBy] = useState("popular")
+  // const [sortBy, setSortBy] = useState("popular")
   const [ideas, setIdeas] = useState<IProjectIdea[]>([])
 
   useEffect(() => {
@@ -52,7 +51,7 @@ export function ProjectIdeasSectionComponent() {
         <h2 className="text-3xl font-bold mb-6 text-center">Project Ideas</h2>
         <div className="flex justify-between items-center mb-6">
           <p className="text-muted-foreground">Discover and discuss new project ideas</p>
-          <Select onValueChange={() => { }} value={sortBy}>
+          {/* <Select onValueChange={() => { }} value={sortBy}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
@@ -60,7 +59,7 @@ export function ProjectIdeasSectionComponent() {
               <SelectItem value="popular">Most Popular</SelectItem>
               <SelectItem value="new">Newest</SelectItem>
             </SelectContent>
-          </Select>
+          </Select> */}
         </div>
         <div className="space-y-4">
           {ideas.map((idea, idx) => (

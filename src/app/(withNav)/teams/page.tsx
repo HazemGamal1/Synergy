@@ -1,16 +1,20 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { IInvitation } from '../../../../models/Invitation';
-import InvitationCard from '@/components/Invitations/InvitationCard';
 import { Bot, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { ITeam } from '../../../../models/Team';
 import { cn } from '@/lib/utils';
 import CreateTeamButton from '@/components/team/createTeamButton';
-const page = () => {
+const Teams = () => {
     const [userTeams, setUserTeams] = useState<ITeam[]>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    interface IMember {
+      userId: string, 
+      username: string, 
+      initials: string
+    }
+    
     useEffect(() => {
             setUserTeams([]);
             const handleGetTeams = async () => {
@@ -53,7 +57,7 @@ const page = () => {
                     <Link href={`/team/${team._id}`} className='mt-2' key={idx}>
                         <div className='flex items-center group transition duration-500 gap-1 py-2 hover:bg-gray-50 dark:hover:bg-[#1d1d1d] rounded-md' >
                             {
-                                team.members.slice(0, 3).map((member : any, idx : number) => (
+                                team.members.slice(0, 3).map((member : IMember, idx : number) => (
                                         idx < 2 ?
                                         <div className={cn(`dark:bg-[#262626] bg-blue-600 text-white rounded-full p-1 w-8 text-center uppercase h-8`, {"-ml-2 ": idx >= 1})} key={idx}>
                                             {member.initials}
@@ -76,4 +80,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Teams

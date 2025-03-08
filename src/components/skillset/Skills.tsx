@@ -59,10 +59,6 @@ export default function SkillSelectionPage() {
             onClick={() => toggleSkill(skill.id)}
           >
             <CardContent className="flex items-center p-4">
-              <div className="mr-4">
-                {/* @ts-ignore */}
-                {/* {Icons[skill.icon] && <Icons[skill.icon] className="h-6 w-6" />} */}
-              </div>
               <div>
                 <h2 className="font-semibold">{skill.name}</h2>
               </div>

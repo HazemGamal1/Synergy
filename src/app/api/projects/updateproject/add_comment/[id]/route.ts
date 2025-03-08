@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Project from "../../../../../../../models/Project";
 import { connectDb } from "@/lib/mongoose";
-//@ts-ignore
+//@ts-expect-error no_explanation
 import jwt from "jsonwebtoken"
 
 export async function POST(request: NextRequest, { params } : { params: { id: string }}){

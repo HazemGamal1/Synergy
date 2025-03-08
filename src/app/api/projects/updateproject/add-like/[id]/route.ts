@@ -1,7 +1,7 @@
 import { connectDb } from "@/lib/mongoose";
 import { NextRequest, NextResponse } from "next/server";
-import Project, { IProject } from "../../../../../../../models/Project";
-//@ts-ignore
+import Project from "../../../../../../../models/Project";
+//@ts-expect-error no_explanation
 import jwt from "jsonwebtoken"
 
 export async function POST(request : NextRequest, {params} : {params : {id : number }}){

@@ -1,8 +1,8 @@
 import { connectDb } from "@/lib/mongoose";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import ProjectIdea from "../../../../../models/ProjectIdea";
 
-export async function GET(request: NextRequest){
+export async function GET(){
     try{
         await connectDb();
         const ideas = await ProjectIdea.find();

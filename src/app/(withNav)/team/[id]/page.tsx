@@ -1,12 +1,10 @@
 "use client"
-import { Input } from '@/components/ui/input'
-import { ArrowRight, ChartNoAxesGantt, ChevronRight, GalleryVerticalEnd, LayoutList, MessageCircleMore, Send, Settings } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { ITeam } from '../../../../../models/Team';
 import SpinnerLoading from '@/components/SpinnerLoading';
 import Link from 'next/link';
 
-const page = ({ params } : { params: { id : string }}) => {
+const Team = ({ params } : { params: { id : string }}) => {
     const [team, setTeam] = useState<ITeam>();
 
     useEffect(() => {
@@ -116,4 +114,4 @@ const page = ({ params } : { params: { id : string }}) => {
   )
 }
 
-export default page
+export default Team

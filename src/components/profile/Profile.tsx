@@ -16,14 +16,12 @@ interface IUser {
 
 
 export default function UserProfile() {
-  const [isLoading, setIsLoading] = useState(false); 
   const [user, setUser] = useState<IUser>({name: 'user', email: 'user', username:' user'});
   const [projects, setProjects] = useState<IProject[]>([]);
   const [projectIsLoading, setProjectIsLoading] = useState<boolean>(false);
   useEffect(() => {
     const handleGetUserData = async () => 
       {
-          setIsLoading(true);
           const response = await fetch("api/validate-token", {
           method : 'GET',
           headers: {
@@ -33,7 +31,6 @@ export default function UserProfile() {
       
           const data = await response.json();
           setUser(data.user);
-          setIsLoading(false);
           setProjectIsLoading(true);
           const projectRes = await fetch(`/api/projects/get-project-from-id/${data.user.userId}`);
           const projectData = await projectRes.json();

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import User from '../../../../../models/User';
-//@ts-ignore
+//@ts-expect-error no_explanation
 import jwt from 'jsonwebtoken';
-//@ts-ignore
+//@ts-expect-error no_explanation
 import bcrypt from 'bcryptjs';
 import { connectDb } from '@/lib/mongoose';
 
@@ -43,6 +43,6 @@ export async function POST(request: Request) {
         );
 
     } catch (error) {
-        return NextResponse.json({ message: 'Error signing in user' }, { status: 500 });
+        return NextResponse.json({ message: `Error signing in user -> error : ${error} `}, { status: 500 });
     }
 }

@@ -6,11 +6,6 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [username, setUsername] = useState<any>();
-
-  const handleChangeAuth = (val : boolean) => {
-    setIsAuthenticated(val)
-  }
   
   useEffect(() => {
     const handleGetUserData = async () => 
@@ -24,8 +19,6 @@ export default function Home() {
               }
               })
           
-              const data = await response.json();
-              setUsername(data.user.username);
               if(response.ok){
                 setIsAuthenticated(true);
               }
@@ -43,7 +36,7 @@ export default function Home() {
       {isLoading ? <PageLoading />
       :
       <>
-        <NewLayout username={username} isAuthenticated={isAuthenticated}/>   
+        <NewLayout isAuthenticated={isAuthenticated}/>   
       </>   
     }
     </>

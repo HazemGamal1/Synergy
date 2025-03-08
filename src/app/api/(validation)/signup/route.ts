@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import User from '../../../../../models/User';
-//@ts-ignore
+//@ts-expect-error no_explanation
 import bcrypt from 'bcryptjs';
 
 export async function POST(request: Request) {
@@ -29,6 +29,6 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ message: 'User created successfully' }, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ message: 'Error creating user' }, { status: 500 });
+        return NextResponse.json({ message: `Error signing in user -> error : ${error} `}, { status: 500 });
     }
 }

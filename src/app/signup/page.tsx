@@ -1,10 +1,10 @@
 import SignUpPage from '@/components/SignUpComponent'
 import React from 'react'
 
-const page = () => {
+const SignUp = () => {
   return (
     <SignUpPage />
   )
 }
 
-export default page
+export default SignUp

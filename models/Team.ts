@@ -1,6 +1,6 @@
 import mongoose , { Schema, Document, mongo } from "mongoose";
 
-interface IMember {
+export interface IMember {
     userId: string,
     username: string,
     initials: string,

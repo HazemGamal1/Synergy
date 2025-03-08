@@ -11,12 +11,12 @@ import { IProject } from "../../../../../models/Project"
 import ProjectCard from "@/components/projects/ProjectCard"
 
 
-const page = ({ params }: { params : { username : string }}) => {
+const User = ({ params }: { params : { username : string }}) => {
   const [user, setUser] = useState<IUser>();
   const [projects, setProjects] = useState<IProject[]>([])
   const [projectIsLoading, setProjectIsLoading] = useState<boolean>(false);
   const [invVisible, setInvVisisble] = useState<boolean>(true);
-
+  let userId : string = "";
   useEffect(() => {
     const getUser = async () => {
       setProjectIsLoading(true);
@@ -38,6 +38,7 @@ const page = ({ params }: { params : { username : string }}) => {
         const res = await fetch(`/api/user/${username}`);
         const data = await res.json();
         setUser(data);      
+        userId = user!._id.toString();
         const { _id } = data;
         const projectRes = await fetch(`/api/projects/get-project-from-id/${_id}`);
         const projectData = await projectRes.json();
@@ -48,7 +49,6 @@ const page = ({ params }: { params : { username : string }}) => {
   }, []);
   
   if(!user) return <PageLoading />
-  console.log(user.username)
   return (
     <div className="container mx-auto px-4 py-15">
       <Card className="border-none shadow-none">
@@ -57,9 +57,9 @@ const page = ({ params }: { params : { username : string }}) => {
             <AvatarImage src={user.name} alt={user.name} />
             <AvatarFallback className="text-4xl font-bold">{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
             {
-              invVisible && 
+              (invVisible) && 
               <>
-                <InvitationButton inviteeId={user._id} inviteeUsername={user.username} />
+                <InvitationButton inviteeId={userId} inviteeUsername={user.username} />
               </>
             }
           </Avatar>
@@ -148,4 +148,4 @@ const page = ({ params }: { params : { username : string }}) => {
   )
 }
 
-export default page
+export default User

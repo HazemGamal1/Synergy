@@ -8,7 +8,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import logo from "../../../public/Vector.svg"
-import General from './General'
 import Teams from './Teams'
 import { Button } from '../ui/button'
 import { IInvitation } from '../../../models/Invitation'
@@ -19,7 +18,7 @@ import InvitationCard from '../Invitations/InvitationCard'
 
 
 
-export default function SideNav( { isAuthenticated, onChangeAuth, username } : { isAuthenticated : boolean, onChangeAuth: (arg: boolean) => void, username: string}) {
+export default function SideNav( { isAuthenticated, onChangeAuth } : { isAuthenticated : boolean, onChangeAuth: (arg: boolean) => void}) {
     const [invitations, setInvitations] = useState<IInvitation[]>();
     const [isLoading, setIsLoading] = useState(false);
     const [userProjects, setUserProjects] = useState<IProject[]>([]);
@@ -152,7 +151,7 @@ export default function SideNav( { isAuthenticated, onChangeAuth, username } : {
                         <Button variant="default" className="relative h-8 w-8 rounded-full border-none">
                             <Avatar className="h-8 w-8 bg-[#F5F5F5] dark:bg-[#1c1c1c]">
                             <AvatarImage/>
-                            <AvatarFallback className='text-black dark:text-gray-400'>{username ? username[0].toUpperCase() : <User />}</AvatarFallback>
+                            <AvatarFallback className='text-black dark:text-gray-400'> <User /></AvatarFallback>
                             </Avatar>
                         </Button>
                         </DropdownMenuTrigger>

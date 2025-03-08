@@ -9,13 +9,11 @@ import PageLoading from '../../components/PageLoading'
 import { useRouter } from 'next/navigation'
 import { CheckCircle2Icon } from 'lucide-react'
 
-export default function page() {
+export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false)
-  const [password, setPassword] = useState();
-  const [username, setUsername] = useState();
-  const [errorEmail, setErrorEmail] = useState<Boolean>(false);
-  const [errorUsername, setErrorUsername] = useState<Boolean>(false);
-  const [error, setError] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [username, setUsername] = useState<string>();
+  const [errorEmail, setErrorEmail] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
 
@@ -23,8 +21,7 @@ export default function page() {
     event.preventDefault()
     setIsLoading(true)
     setErrorEmail(false);
-    setErrorUsername(false);
-    setError("");
+
     try { 
             const response = await fetch("api/signin", {
                 method : 'POST',
@@ -40,8 +37,8 @@ export default function page() {
               setIsLoggedIn(true);
               router.push("/")
             }
-    }catch(error : any){
-        setError(error);
+    }catch(error){
+      console.log(error);
     }
     setIsLoading(false);
   }
@@ -79,7 +76,7 @@ export default function page() {
                     autoCapitalize="none"
                     autoCorrect="off"
                     disabled={isLoading}
-                    onChange={(e : any) => setUsername(e.target.value) }
+                    onChange={(e :  React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value) }
                   />
                   {errorEmail && <div className='text-red-500'>Email already used</div>}
                 </div>
@@ -92,7 +89,7 @@ export default function page() {
                     autoComplete="new-password"
                     autoCorrect="off"
                     disabled={isLoading}
-                    onChange={(e : any) => setPassword(e.target.value)}
+                    onChange={(e :  React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                   />
                 </div>
                 <Button className="w-full mt-4" type="submit" disabled={isLoading}>
@@ -121,7 +118,7 @@ export default function page() {
             </CardFooter>
           </Card>
           <p className="mt-4 text-center text-sm text-muted-foreground">
-            Don't have an account?{" "}
+            Do not have an account?{" "}
             <Link
               href="/signup"
               className="hover:text-brand underline underline-offset-4"

@@ -1,31 +1,25 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Mail, Linkedin, Handshake } from 'lucide-react'
+import { Handshake } from 'lucide-react'
 import Image from "next/image"
-import Link from "next/link"
 import medal from "../../../../public/cyberpsycho.jpg"
 import medal2 from "../../../../public/netrunner.jpg"  
 import medal3 from "../../../../public/datascraper.jpg"  
 import medal4 from "../../../../public/rockstar.jpg"  
-import { useState } from "react"
 import { IUser } from "../../../../models/User"
 
 
 
 export default function UserProfile({ user } : { user: IUser}) {
-  const [isLoading, setIsLoading] = useState(false); 
-    console.log(user);
   const sendInvitation = async() => {
     try {
-      const res = await fetch('/api/send-invitation', {
+      await fetch('/api/send-invitation', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      const data = await res.json();
-      console.log(data);
     }catch(error){
       console.log(error);
     }

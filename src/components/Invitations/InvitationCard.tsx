@@ -9,7 +9,7 @@ const InvitationCard = ({ inv } : { inv: IInvitation }) => {
     const handleAcceptInvitation = async (id : string) => {
         try{
             setIsLoading(true);
-            const res = await fetch(`/api/accept-invitation/${id}`)
+            await fetch(`/api/accept-invitation/${id}`)
             setIsRespondedTo(true);
         }catch(error){
             console.log(error);
@@ -18,7 +18,7 @@ const InvitationCard = ({ inv } : { inv: IInvitation }) => {
     const handleDeclineInvitation = async (id : string) => {
         try{
             setIsLoading(true);
-            const res = await fetch(`/api/decline-invitation/${id}`)
+            await fetch(`/api/decline-invitation/${id}`)
             setIsRespondedTo(true);
         }catch(error){
             console.log(error);

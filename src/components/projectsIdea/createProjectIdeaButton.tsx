@@ -13,19 +13,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Lightbulb} from 'lucide-react'
-import { Textarea } from '../ui/textarea'
 
-interface IMember {
-    userId: string,
-    username: string,
-    initials: string
-} 
 export default function CreateProjectIdea() {
     const [isLoading, setIsLoading] = useState(false);
-    const [title, setTitle] = useState();
-    const [username, setUsername] = useState();
-    const [error, setError] = useState("");
-    const [description , setDescription] = useState()
+    const [title, setTitle] = useState<string>();
+    const [description , setDescription] = useState<string>("")
     const createdDate = Date.now();
 
     async function onSubmit(event: React.SyntheticEvent) {
@@ -41,15 +33,13 @@ export default function CreateProjectIdea() {
                 body: JSON.stringify(data)
             })
             if(response.status === 404){
-                setError(`No user was found with the username ${username}`)
             }
             if(response.ok){
-                setError("");
                 const data = await response.json();
                 console.log(data)
             }
         }catch(error){
-            
+          console.log(error); 
         }finally{
             setIsLoading(false);
         }
@@ -78,18 +68,19 @@ export default function CreateProjectIdea() {
                 autoComplete="current-password"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setTitle(e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                 />
             </div>
             <div className="grid gap-2 mt-4 mb-8">
                 <Label htmlFor="description">Project idea description:</Label>
-                <Textarea
+                <Input
                   id="description"
                   autoCapitalize="none"
                   autoComplete="current-password"
                   autoCorrect="off"
+                  multiple
                   disabled={isLoading}
-                  onChange={(e : any) => setDescription(e.target.value)}
+                  onChange={(e : React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
                 />
             </div>
           <DialogFooter>

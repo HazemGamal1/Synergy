@@ -4,9 +4,9 @@ import { IProject } from '../../../../models/Project';
 import Link from 'next/link'
 import { Card, CardContent, CardFooter, CardTitle } from '../../../components/ui/card'
 
-import { BrainCircuit, Infinity, ShieldHalf, TabletSmartphone } from 'lucide-react'
+import { BrainCircuit, Infinity, Loader2, ShieldHalf, TabletSmartphone } from 'lucide-react'
 
-const page = () => {
+const Page = () => {
     const [isLoading, setIsLoading] = useState<boolean>();
     const [projects, setProjects] = useState<IProject[]>();
       
@@ -29,7 +29,13 @@ const page = () => {
     <div
       className="w-full container mx-auto px-4 gap-4 py-12 grid grid-cols-1 place-content-center lg:grid-cols-2  xl:grid-cols-3"
     >
-      {projects && projects.map((project, idx) => (
+      
+      {  isLoading ? 
+        <div className='grid text-center place-content-center w-full'>
+            <Loader2 className='mx-auto animate-spin'/>
+        </div>
+      :
+      projects && projects.map((project, idx) => (
         <Link href={`/project/${project._id}`} key={idx}>
         <Card className="flex flex-col h-full bg-[#F3F4F6] hover:drop-shadow-lg dark:bg-[#1c1c1c] rounded-md dark:hover:bg-[#272727] duration-500">
             <CardContent className="flex-grow">
@@ -94,4 +100,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

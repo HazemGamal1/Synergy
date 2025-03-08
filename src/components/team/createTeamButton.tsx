@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -13,7 +13,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Link from 'next/link'
-import SpinnerLoading from '../SpinnerLoading'
 import { Plus, Users2 } from 'lucide-react'
 
 interface IMember {
@@ -23,11 +22,11 @@ interface IMember {
 } 
 export default function CreateTeamButton() {
     const [isLoading, setIsLoading] = useState(false);
-    const [title, setTitle] = useState();
-    const [username, setUsername] = useState();
+    const [title, setTitle] = useState<string>();
+    const [username, setUsername] = useState<string>();
     const [members, setMembers] = useState<IMember[]>([]);
     const [error, setError] = useState("");
-    const [description , setDescription] = useState()
+    const [description , setDescription] = useState<string>()
 
     async function onAddMember() {
         setIsLoading(true)
@@ -48,7 +47,7 @@ export default function CreateTeamButton() {
                 console.log(data)
             }
         }catch(error){
-            
+            console.log(error)
         }finally{
             setIsLoading(false);
         }
@@ -74,7 +73,7 @@ export default function CreateTeamButton() {
                 console.log(data)
             }
         }catch(error){
-            
+            console.log(error);
         }finally{
             setIsLoading(false);
         }
@@ -106,7 +105,7 @@ export default function CreateTeamButton() {
                 autoComplete="current-password"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setTitle(e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                 />
             </div>
             <div className="grid gap-2 mt-4">
@@ -118,7 +117,7 @@ export default function CreateTeamButton() {
                 autoComplete="current-password"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setDescription(e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
                 />
             </div>
             <div className="grid gap-4 py-4">
@@ -133,7 +132,7 @@ export default function CreateTeamButton() {
                         autoCorrect="off"
                         disabled={isLoading}
                         className='rounded-r-none'
-                        onChange={(e : any) => setUsername(e.target.value)}
+                        onChange={(e : React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                     />
                     <Button type='button' className='p-2 duration-300 rounded-l-none' onClick={onAddMember}>
                         <Plus />

@@ -1,7 +1,7 @@
 import UserProfile from "@/components/profile/Profile"
 
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <UserProfile />
@@ -9,4 +9,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -10,12 +10,12 @@ import SpinnerLoading from './SpinnerLoading'
 
 export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false)
-  const [name, setName] = useState();
-  const [password, setPassword] = useState();
-  const [email, setEmail] = useState()
-  const [username, setUsername] = useState();
-  const [errorEmail, setErrorEmail] = useState<Boolean>(false);
-  const [errorUsername, setErrorUsername] = useState<Boolean>(false);
+  const [name, setName] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [email, setEmail] = useState<string>()
+  const [username, setUsername] = useState<string>();
+  const [errorEmail, setErrorEmail] = useState<boolean>(false);
+  const [errorUsername, setErrorUsername] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -37,8 +37,8 @@ export default function SignUpPage() {
             {
               setError("Username already used");
             }
-    }catch(error : any){
-        setError(error);
+    }catch(error){
+      console.log(error);
     }
     setIsLoading(false);
   }
@@ -65,7 +65,7 @@ export default function SignUpPage() {
                 autoComplete="name"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setName(e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
               />
             </div>
             <div className="grid gap-2 mb-4">
@@ -78,7 +78,7 @@ export default function SignUpPage() {
                 autoComplete="name"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setUsername(e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
               />
               {errorUsername && <div className='text-red-500'>Username already used</div>}
             </div>
@@ -91,7 +91,7 @@ export default function SignUpPage() {
                 autoComplete="new-password"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setPassword(e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               />
             </div>
             <div className="grid gap-2 mt-4">
@@ -104,7 +104,7 @@ export default function SignUpPage() {
                 autoComplete="email"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setEmail(e.target.value) }
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value) }
               />
               {errorEmail && <div className='text-red-500'>Email already used</div>}
             </div>

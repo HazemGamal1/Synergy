@@ -13,6 +13,6 @@ export async function GET(req: NextRequest, { params } : { params : { username: 
         }
         return NextResponse.json(user._doc, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ message: 'Error fetching users' }, { status: 500 });
+        return NextResponse.json({ message: `Error fetching users -> error :${error}` }, { status: 500 });
     }
 }

@@ -15,14 +15,13 @@ import {
 } from "@/components/ui/dialog"
 import Link from 'next/link'
 import SpinnerLoading from './SpinnerLoading'
-import { useRouter } from 'next/navigation'
 import { User2 } from 'lucide-react'
 
 
 export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) => void}) {
   const [isLoading, setIsLoading] = useState(false)
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
@@ -41,7 +40,7 @@ export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) =>
           onChangeAuth(true);
         }  
     }catch(error){
-
+      console.log(error);
     }finally{
       setIsLoading(false);
     }
@@ -76,7 +75,7 @@ export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) =>
                 autoComplete="off"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setUsername(e.target.value)}
+                onChange={(e :  React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
               />
             </div>
             <div className="grid gap-2">
@@ -88,7 +87,7 @@ export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) =>
                 autoComplete="current-password"
                 autoCorrect="off"
                 disabled={isLoading}
-                onChange={(e : any) => setPassword(e.target.value)}
+              onChange={(e :  React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               />
             </div>
           </div>

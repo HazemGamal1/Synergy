@@ -1,7 +1,7 @@
 import { connectDb } from "@/lib/mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import Invitation from "../../../../../models/Invitation";
-//@ts-ignore
+//@ts-expect-error no_explanation
 import jwt from "jsonwebtoken"
 
 export async function GET(req: NextRequest){

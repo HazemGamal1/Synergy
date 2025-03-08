@@ -15,39 +15,38 @@ import { Handshake} from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { IProject } from '../../../models/Project'
 
-export default function InvitationButton({ inviteeId, inviteeUsername }: { inviteeId : any, inviteeUsername: String }) {
+export default function InvitationButton({ inviteeId, inviteeUsername }: { inviteeId : string, inviteeUsername: string }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
     const [currentUserProjects, setCurrentUserProjects] = useState<IProject[]>([]);
     const [project, setProject] = useState<IProject>();
-    const [position, setPosition] = useState<String>();
+    const [position, setPosition] = useState<string>();
 
     const sendInvitation = async() => {
       try {
+        setIsLoading(true);
         if(project){
           const finalData = { inviteeId, inviteeUsername, type: "invitation", project: project._id, projectName: project.title, position: position}
-          const res = await fetch('/api/send-invitation', {
+          await fetch('/api/send-invitation', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(finalData)
           });
-          const data = await res.json();
         }else{
           console.log("user not found")
         }
-        
+        setIsLoading(false);
       }catch(error){
         console.log(error);
       }
     }
 
-    const handleProjectValueChange = (value : String) => {
+    const handleProjectValueChange = (value : string) => {
       const proj = currentUserProjects.find(p => p.title === value);
       setProject(proj);
     }
-    const handlePositionValueChange = (value : String) => {
+    const handlePositionValueChange = (value : string) => {
       setPosition(value);
     }
     useEffect(() => {
@@ -56,7 +55,7 @@ export default function InvitationButton({ inviteeId, inviteeUsername }: { invit
           const res = await fetch(`/api/projects/get-user-projects`);
           const data = await res.json();
           setCurrentUserProjects(data);
-        }catch(errror){
+        }catch(error){
           console.log(error);
         }
       }
@@ -64,8 +63,6 @@ export default function InvitationButton({ inviteeId, inviteeUsername }: { invit
       getProjects();
     }, [])
 
-    console.log(project);
-    console.log(position);
 
   return (
     <Dialog>

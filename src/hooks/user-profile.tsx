@@ -1,8 +1,7 @@
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { PlusCircle, Mail, GitHub, Linkedin } from 'lucide-react'
+import { Mail, Github, Linkedin } from 'lucide-react'
 import Image from "next/image"
 import Link from "next/link"
 
@@ -64,7 +63,7 @@ export default function UserProfile() {
               {user.email}
             </Link>
             <Link href={`https://github.com/${user.github}`} className="flex items-center text-muted-foreground hover:text-primary">
-              <GitHub className="mr-2 h-4 w-4" />
+              <Github className="mr-2 h-4 w-4" />
               {user.github}
             </Link>
             <Link href={`https://linkedin.com/in/${user.linkedin}`} className="flex items-center text-muted-foreground hover:text-primary">

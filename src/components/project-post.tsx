@@ -254,7 +254,7 @@ export function ProjectPost() {
                         autoCorrect="off"
                         disabled={isLoading}
                         className='rounded-r-none'
-                        onChange={(e : any) => setUsername(e.target.value)}
+                        onChange={(e : React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                     />
                     <Button type='button' className='p-2 duration-300 rounded-l-none' onClick={onAddMember}>
                         <Plus />

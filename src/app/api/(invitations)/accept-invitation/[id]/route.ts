@@ -25,7 +25,7 @@ export async function GET(request: NextRequest, { params }: { params : { id: str
             return NextResponse.json({ message: "This project was not found"}, { status: 404});
         }
 
-        const res = await Invitation.deleteOne({ _id : id });
+        await Invitation.deleteOne({ _id : id });
         
         return NextResponse.json({ message: "Invitation accepted and paricipant added to project successfully"}, { status: 200 });
     }catch(error){
