@@ -31,7 +31,7 @@ export default function CreateTeamButton() {
     async function onAddMember() {
         setIsLoading(true)
         try{
-            const response = await fetch(`/api/user/${username}`, {
+            const response = await fetch(`/api/user?username=${username}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
