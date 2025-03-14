@@ -1,6 +1,6 @@
 "use client"
 import SideNav from '@/components/SideNav/SideNav'
-import { Handshake, LogInIcon, LogOut, Menu, User, Users2} from 'lucide-react'
+import { Globe, Handshake, LogInIcon, LogOut, Menu, User, Users2} from 'lucide-react'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
@@ -74,6 +74,11 @@ const Layout = ({ children }: { children : React.ReactNode}) => {
                 <DropdownMenuItem>
                   <Link href={"/teams"} className='flex gap-2 items-center'>
                     <Users2 /> Teams
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={"/discover-users"} className='flex gap-2 items-center'>
+                    <Globe /> Discover users
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>

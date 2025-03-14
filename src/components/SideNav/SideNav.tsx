@@ -1,6 +1,6 @@
 'use client'
 
-import { BrainCircuit, Cloudy, Infinity, Loader2Icon, LogOut, Plus, ShieldHalf, TabletSmartphone, User } from 'lucide-react'
+import { BrainCircuit, Cloudy, Globe, Infinity, Loader2Icon, LogOut, Plus, ShieldHalf, TabletSmartphone, User } from 'lucide-react'
 import Link from 'next/link'
 import { LoginPopup } from '../../components/LoginButton'
 import { Avatar, AvatarFallback, AvatarImage } from './../ui/avatar'
@@ -93,7 +93,13 @@ export default function SideNav( { isAuthenticated, onChangeAuth } : { isAuthent
         </Link>
         {
             isAuthenticated ?
-            <div className='h-[93%] flex flex-col justify-between'>
+            <div className='h-[93%] flex flex-col '>
+                <div className='px-3'>
+                    <Link href={"/discover-users"} className='flex gap-2 items-center text-blue-500 py-2 hover:text-blue-400 '>
+                        <Globe />
+                        Discover users
+                    </Link>
+                </div>
                 <div className='px-3'>
                     <Teams userTeams={userTeams}/>
                     <div>

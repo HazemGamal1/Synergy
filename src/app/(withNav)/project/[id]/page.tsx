@@ -266,8 +266,9 @@ export default function ProjectPage({ params }: PageProps) {
                 <TabsTrigger value="links">Links</TabsTrigger>
               </TabsList>
               <TabsContent value="description" className="mt-4">
+                <p className='pb-4 text-blue-500'>Description: </p>
                 <p className="mb-4">{project.shortDescription}</p>
-                <p className="text-muted-foreground">{project.detailedDescription}</p>
+                <p  style={{ whiteSpace: "pre-wrap" }} className="text-muted-foreground">{project.detailedDescription}</p>
               </TabsContent>
               <TabsContent value="details" className="mt-4">
                 <h3 className="text-lg font-semibold mb-2">Required Skills</h3>
