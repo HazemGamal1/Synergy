@@ -4,7 +4,6 @@ import { IUser } from '../../../../models/User'
 import Link from 'next/link'
 import { Avatar } from '@radix-ui/react-avatar'
 import { AvatarFallback } from '@/components/ui/avatar'
-import InvitationButton from '@/components/Invitations/InvitationButton'
 import PageLoading from '@/components/PageLoading'
 const DiscoverUsers = () => {
     const [users, setUsers] = useState<IUser[]>([])
