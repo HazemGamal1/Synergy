@@ -1,6 +1,6 @@
-import Invitation from "../../models/Invitation";
+import Invitation, { IInvitation } from "../../models/Invitation";
 
-export function watchInvitations(callback: (invitation : any) => void) {
+export function watchInvitations(callback: (invitation : IInvitation) => void) {
   const changeStream = Invitation.watch();
   changeStream.on('change', (change) => {
     if (change.operationType === 'insert') {
