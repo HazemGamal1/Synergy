@@ -11,7 +11,6 @@ export function GET(req: NextRequest) {
     try {
         const secretKey = process.env.JWT_SECRET;
         const decoded = jwt.verify(token, secretKey);
-        console.log(decoded.userId)
         return NextResponse.json({ valid: true, user: decoded}, { status: 200})
     }catch(error){
         return NextResponse.json({ message: `Invalide token -> error : ${error} ` }, { status: 401})

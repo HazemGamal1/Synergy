@@ -1,6 +1,6 @@
 'use client'
 
-import { BrainCircuit, Cloudy, Infinity, Loader2Icon, LogOut, Plus, Settings, ShieldHalf, TabletSmartphone, User } from 'lucide-react'
+import { BrainCircuit, Cloudy, Infinity, Loader2Icon, LogOut, Plus, ShieldHalf, TabletSmartphone, User } from 'lucide-react'
 import Link from 'next/link'
 import { LoginPopup } from '../../components/LoginButton'
 import { Avatar, AvatarFallback, AvatarImage } from './../ui/avatar'
@@ -19,19 +19,37 @@ import InvitationCard from '../Invitations/InvitationCard'
 
 
 export default function SideNav( { isAuthenticated, onChangeAuth } : { isAuthenticated : boolean, onChangeAuth: (arg: boolean) => void}) {
-    const [invitations, setInvitations] = useState<IInvitation[]>();
+    const [invitations, setInvitations] = useState<IInvitation[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [userProjects, setUserProjects] = useState<IProject[]>([]);
     const [userTeams, setUserTeams] = useState<ITeam[]>([]);
     
     useEffect(() => {
-        setInvitations([]);
+        // Connect to the SSE route
+        const eventSource = new EventSource('/api/sse');
+    
+        // Listen for messages from the server
+        eventSource.onmessage = (event) => {
+          const message = JSON.parse(event.data);
+          if (message.type === 'invitation') {
+            setInvitations((prev) => [...prev, message.data]);
+          }
+        };
+    
+        // Handle errors
+        eventSource.onerror = () => {
+          console.error('SSE error');
+          eventSource.close();
+        };
+    
+        // Clean up on unmount
+        return () => eventSource.close();
+      }, []);
+
+    useEffect(() => {
         const handleGetProjects = async () => {
           setIsLoading(true);
           try{
-            const responseInv = await fetch("/api/get-invitations");
-            const dataInv = await responseInv.json();
-            setInvitations(dataInv);
             const resUserProj = await fetch("/api/projects/get-user-projects");
             const dataUserProjs = await resUserProj.json();
             setUserProjects(dataUserProjs);
@@ -161,10 +179,6 @@ export default function SideNav( { isAuthenticated, onChangeAuth } : { isAuthent
                             <User className="mr-2 h-4 w-4" />
                             <span>Profile</span>
                             </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Settings className="mr-2 h-4 w-4" />
-                            <span>Settings</span>
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={handleLogout}>
                             <LogOut className="mr-2 h-4 w-4" />

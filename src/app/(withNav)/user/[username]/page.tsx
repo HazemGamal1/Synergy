@@ -1,7 +1,7 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Bot, Loader } from 'lucide-react'
+import { Bot, Loader} from 'lucide-react'
 import { useEffect, useState } from "react"
 import { IUser } from "../../../../../models/User";
 import PageLoading from "@/components/PageLoading"
@@ -9,7 +9,8 @@ import InvitationButton from "@/components/Invitations/InvitationButton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IProject } from "../../../../../models/Project"
 import ProjectCard from "@/components/projects/ProjectCard"
-import { PageProps } from "../../../../../.next/types/app/(withNav)/user/[username]/page"
+import { PageProps } from "../../../../../../.next/types/app/(withNav)/user/[username]/page"
+import { Github, Linkedin, Twitter, Youtube, Globe } from "lucide-react"
 
 
 const User = ({ params }: PageProps) => {
@@ -17,6 +18,7 @@ const User = ({ params }: PageProps) => {
   const [projects, setProjects] = useState<IProject[]>([])
   const [projectIsLoading, setProjectIsLoading] = useState<boolean>(false);
   const [invVisible, setInvVisisble] = useState<boolean>(true);
+  
   useEffect(() => {
     const getUser = async () => {
       setProjectIsLoading(true);
@@ -46,7 +48,6 @@ const User = ({ params }: PageProps) => {
       }
       getUser();
   }, []);
-  
   if(!user) return <PageLoading />
   return (
     <div className="container mx-auto px-4 py-15">
@@ -68,6 +69,7 @@ const User = ({ params }: PageProps) => {
           </div>
         </CardHeader>
         <CardContent>
+          <p className="pb-2 font-semibold">Skills:</p>
           <div className="flex flex-wrap gap-2 mb-4">
             {user.skills.map((skill, index) => (
               <span
@@ -81,6 +83,7 @@ const User = ({ params }: PageProps) => {
           <Tabs defaultValue="projects">
             <TabsList>
               <TabsTrigger value="projects">Projects</TabsTrigger>
+              <TabsTrigger value="social_links">Social links</TabsTrigger>
             </TabsList>
             <TabsContent value="projects">
               {
@@ -104,9 +107,77 @@ const User = ({ params }: PageProps) => {
 
               }
             </TabsContent>
-            {/* <TabsContent value="contributions">
-              <p className="text-muted-foreground mt-4">No contributions yet.</p>
-            </TabsContent> */}
+            <TabsContent value="social_links">
+                <div className="w-full grid gap-4 grid-cols-1 lg:grid-cols-3 py-8">
+                  <div className="grid gap-1 w-full border p-4 rounded-lg">
+                    <p className="flex gap-2 items-center text-muted-foreground">
+                      <Github />
+                      Github
+                    </p>
+                    <a href={user.github} className="hover:underline hover:text-blue-600" target="#">
+                      {
+                        user.github
+                      }
+                    </a>
+                  </div>
+                  <div className="grid gap-1 w-full border p-4 rounded-lg">
+                    <p className="flex gap-2 items-center text-muted-foreground">
+                      <Linkedin />
+                      LinkedIn
+                    </p>
+                    {
+                        user.linkedin ?
+                        <a href={user.linkedin} className="hover:underline hover:text-blue-600" target="#">
+                          {user.linkedin}
+                        </a>
+                        :
+                        <p className="text-muted-foreground">No data found</p>
+                      }
+                  </div>
+                  <div className="grid gap-1 w-full border p-4 rounded-lg">
+                    <p className="flex gap-2 items-center text-muted-foreground">
+                      <Twitter />
+                      X
+                    </p>
+                    {
+                        user.twitter ?
+                        <a href={user.twitter} className="hover:underline hover:text-blue-600" target="#">
+                          {user.twitter}
+                        </a>
+                        :
+                        <p className="text-muted-foreground">No data found</p>
+                      }
+                  </div>
+                  <div className="grid gap-1 w-full border p-4 rounded-lg">
+                    <p className="flex gap-2 items-center text-muted-foreground">
+                      <Youtube />
+                      Youtube
+                    </p>
+                    {
+                      user.youtube ?
+                      <a href={user.github} className="hover:underline hover:text-blue-600" target="#">
+                        {user.youtube}
+                      </a>
+                      :
+                      <p className="text-muted-foreground">No data found</p>
+                    }
+                  </div>
+                  <div className="grid gap-1 w-full border p-4 rounded-lg">
+                    <p className="flex gap-2 items-center text-muted-foreground">
+                      <Globe />
+                      Website
+                    </p>
+                    {
+                        user.website ?
+                        <a href={user.website} className="hover:underline hover:text-blue-600" target="#">
+                          {user.website}
+                        </a>
+                        :
+                        <p className="text-muted-foreground">No data found</p>
+                      }
+                  </div>
+                </div>
+            </TabsContent>
           </Tabs>
          {/* <div className="mt-8">
           <h1 className="font-bold mb-4">Badges</h1>

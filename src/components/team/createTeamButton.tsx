@@ -26,7 +26,7 @@ export default function CreateTeamButton() {
     const [username, setUsername] = useState<string>();
     const [members, setMembers] = useState<IMember[]>([]);
     const [error, setError] = useState("");
-    const [description , setDescription] = useState<string>()
+    const [position, setPosition] = useState<string>("")
 
     async function onAddMember() {
         setIsLoading(true)
@@ -43,8 +43,7 @@ export default function CreateTeamButton() {
             if(response.ok){
                 setError("");
                 const data = await response.json();
-                setMembers( prev => [...prev, { userId: data._id, username: data.username, initials: data.name[0] + data.name[1]}])
-                console.log(data)
+                setMembers( prev => [...prev, { userId: data._id, username: data.username, initials: data.name[0] + data.name[1], position  }])
             }
         }catch(error){
             console.log(error)
@@ -56,7 +55,7 @@ export default function CreateTeamButton() {
         event.preventDefault()
         setIsLoading(true)
         try{
-            const data = { title, description , members}
+            const data = { title, members}
             const response = await fetch(`/api/create-team`, {
                 method: "Post",
                 headers: {
@@ -108,37 +107,38 @@ export default function CreateTeamButton() {
                 onChange={(e : React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                 />
             </div>
-            <div className="grid gap-2 mt-4">
-                <Label htmlFor="description">Team description: <span className='text-muted-foreground'>(optional)</span></Label>
-                <Input
-                id="description"
-                type="text"
-                autoCapitalize="none"
-                autoComplete="current-password"
-                autoCorrect="off"
-                disabled={isLoading}
-                onChange={(e : React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
-                />
-            </div>
             <div className="grid gap-4 py-4">
                 <div className="grid gap-2">
                     <Label htmlFor="id">Team member user id:</Label>
                     <div className='flex items-center'>
+                        <Input
+                            id="id"
+                            placeholder="Enter user ID"
+                            type="text"
+                            autoCapitalize="none"
+                            autoCorrect="off"
+                            disabled={isLoading}
+                            className='rounded-r-none'
+                            onChange={(e : React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                        />
+                        </div>
+                    <div className='flex items-center'>
+                    <p className='w-full'>Assign member position:</p>
                     <Input
-                        id="id"
-                        placeholder="example123"
+                        id="role"
+                        placeholder="ex: DevOps Engineer"
                         type="text"
                         autoCapitalize="none"
                         autoCorrect="off"
                         disabled={isLoading}
-                        className='rounded-r-none'
-                        onChange={(e : React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                        className='rounded-r-none w-full'
+                        onChange={(e : React.ChangeEvent<HTMLInputElement>) => setPosition(e.target.value)}
                     />
-                    <Button type='button' className='p-2 duration-300 rounded-l-none' onClick={onAddMember}>
-                        <Plus />
-                    </Button>
                     </div>
                 </div>
+                <Button type='button' variant={'secondary'} className='p-2 duration-300 ' onClick={onAddMember}>
+                    Add <Plus />
+                </Button>
                 {
                     error !== "" &&
                     <p className='text-red-500 font-normal text-sm'>

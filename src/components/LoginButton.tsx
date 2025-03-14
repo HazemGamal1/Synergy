@@ -22,8 +22,12 @@ export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) =>
   const [isLoading, setIsLoading] = useState(false)
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [usernameError, setUsernameError] = useState<boolean>(false)
+  const [passwordError, setPasswordError] = useState<boolean>(false)
 
   async function onSubmit(event: React.SyntheticEvent) {
+    setUsernameError(false);
+    setPasswordError(false);
     event.preventDefault()
     setIsLoading(true)
 
@@ -36,6 +40,12 @@ export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) =>
             body: JSON.stringify({ username, password })
         })
         const data = await response.json();
+        if(data.message === "User not found"){
+          setUsernameError(true);
+        }
+        if(data.message === "Password is incorrect"){
+          setPasswordError(true);
+        }
         if(data.message === "Login successful"){
           onChangeAuth(true);
         }  
@@ -69,7 +79,7 @@ export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) =>
               <Label htmlFor="username">Username</Label>
               <Input
                 id="username"
-                placeholder="@username"
+                placeholder="username"
                 type="text"
                 autoCapitalize="none"
                 autoComplete="off"
@@ -83,6 +93,7 @@ export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) =>
               <Input
                 id="password"
                 type="password"
+                placeholder='password'
                 autoCapitalize="none"
                 autoComplete="current-password"
                 autoCorrect="off"
@@ -91,6 +102,18 @@ export function LoginPopup({ onChangeAuth } : { onChangeAuth : (arg: boolean) =>
               />
             </div>
           </div>
+          {
+            usernameError &&
+            <p className='text-red-500 pt-2 text-center'>
+              User not found
+            </p>
+          }
+          {
+            passwordError &&
+            <p className='text-red-500 pt-2 text-center'>
+              Password is incorrect
+            </p>
+          }
           <DialogFooter>
             <Button type="submit" disabled={isLoading} className='w-full'>
               Log In

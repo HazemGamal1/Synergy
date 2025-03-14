@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
     console.log(token)
   if (!token) {
     // Redirect to login if no token is found
-    return NextResponse.redirect(new URL('/signin', req.url));
+    return NextResponse.redirect(`${req.nextUrl.origin}/signin`);
   }
 
   try {
@@ -21,13 +21,13 @@ export async function middleware(req: NextRequest) {
     }
 
     // Redirect to login if token is invalid
-    return NextResponse.redirect(new URL('/signin', req.url));
+    return NextResponse.redirect(`${req.nextUrl.origin}/signin`);
   } catch (error) {
     // Redirect to login in case of errors
-    return NextResponse.redirect(new URL('/signin', req.url));
+    return NextResponse.redirect(`${req.nextUrl.origin}/signin`);
   }
 }
 
 export const config = {
-  matcher: ['/profile', '/post-project', '/team', '/invitations', '/teams'], // Paths to apply middleware
+  matcher: ['/profile', '/post-project', '/team', '/invitations', '/teams', '/skills'], // Paths to apply middleware
 };

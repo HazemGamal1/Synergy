@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { MessageSquare, Share2, ThumbsUp, Calendar, User, Ellipsis, MessageCircle, Trash2, Github, LinkIcon } from 'lucide-react'
+import { MessageSquare, Share2, ThumbsUp, Calendar, User, Ellipsis, MessageCircle, Trash2, Github, LinkIcon, ThumbsUpIcon, Bot } from 'lucide-react'
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -61,6 +61,7 @@ export default function ProjectPage({ params }: PageProps) {
   const [comments, setComments] = useState<IComment[]>([]);
   const [project, setProject] = useState<IIProject>();
   const [likes, setLikes] = useState<number>(2);
+  const [notFound, setNotFound] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -93,7 +94,7 @@ export default function ProjectPage({ params }: PageProps) {
       setLikes(project?.likes.length + 1);
     }
     const { id } = await params;
-    await fetch(`/api/projects/updateproject/add-like/${id}`, {
+    await fetch(`/api/projects/updateproject/add-like?id=${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -126,6 +127,9 @@ export default function ProjectPage({ params }: PageProps) {
         const { id } = await params;
         const res = await fetch(`/api/projects/project?id=${id}`);
         const data = await res.json();
+        if(data.message === "Server error"){
+          setNotFound(true);
+        }
         setProject(data);
         setLikes(data.likes.length)
         setComments(data.comments)
@@ -149,7 +153,19 @@ export default function ProjectPage({ params }: PageProps) {
     getPost();
     handleGetUserData();
   }, []);
-  
+
+
+  if(notFound){
+    return(
+      <div className="w-full h-screen grid place-content-center text-center text-muted-foreground">
+        <Bot size={100} className="mx-auto"/>
+        <p>
+          This project was not found...
+        </p>
+      </div>
+    )
+  }  
+
   return (
     <div className="px-4 2xl:px-4 container mx-auto pt-4 pb-4 2xl:pt-5 2xl:pb-20">
       {
@@ -220,21 +236,26 @@ export default function ProjectPage({ params }: PageProps) {
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="mt-4">Paricipants :</p>
-              <div className="grid grid-cols-3 gap-1 max-w-max">
               {
-                project.participants.length !== 0 &&
-                project.participants.map((participant, idx) => (
-                  <Link href={`/user/${participant.username}`} key={idx} className='grid gap-1 text-center'>
-                    <div className="dark:bg-[#262626] mx-auto bg-blue-600 text-white rounded-full p-1 w-8 text-center uppercase h-8">
-                      <div>{participant.initials}</div>
-                    </div>
-                    <p className='text-muted-foreground text-xs'>@{participant.username}</p>
-                    <p className='text-blue-600 text-xs'>{participant.position}</p>
-                  </Link>
-                ))
+                project.participants.length > 0 &&
+                <>
+                  <p className="mt-4">Paricipants :</p>
+                  <div className="grid grid-cols-3 gap-1 max-w-max">
+                  {
+                    project.participants.length !== 0 &&
+                    project.participants.map((participant, idx) => (
+                      <Link href={`/user/${participant.username}`} key={idx} className='grid gap-1 text-center'>
+                        <div className="dark:bg-[#262626] mx-auto bg-blue-600 text-white rounded-full p-1 w-8 text-center uppercase h-8">
+                          <div>{participant.initials}</div>
+                        </div>
+                        <p className='text-muted-foreground text-xs'>@{participant.username}</p>
+                        <p className='text-blue-600 text-xs'>{participant.position}</p>
+                      </Link>
+                    ))
+                  }
+                  </div>
+                </>
               }
-              </div>
             </div>
           </CardHeader>
           <CardContent>
@@ -257,10 +278,6 @@ export default function ProjectPage({ params }: PageProps) {
                     </Badge>
                   ))}
                 </div>
-                <h3 className="text-lg font-semibold mb-2">Project Status</h3>
-                <p className="text-muted-foreground mb-4">In Progress</p>
-                <h3 className="text-lg font-semibold mb-2">Estimated Completion</h3>
-                <p className="text-muted-foreground">December 2024</p>
               </TabsContent>
               <TabsContent value="links" className="mt-4">
                 <h3 className="text-lg font-semibold mb-2 flex gap-2 items-center"><Github /> Github Repo</h3>
@@ -284,7 +301,13 @@ export default function ProjectPage({ params }: PageProps) {
           <CardFooter>
             <div className="flex items-center space-x-4 text-muted-foreground">
               <Button variant="ghost" className="flex items-center" onClick={() => addLike()}>
-                <ThumbsUp className="mr-2 h-4 w-4" />
+                {
+                 project.likes.some(userId => userId === user?.userId)
+                 ?
+                 <ThumbsUpIcon fill='#FFF' className={`mr-2 h-4 w-4`} />
+                 :
+                  <ThumbsUp className={`mr-2 h-4 w-4`} />
+                }
                 <span className="text-[#1971FB]">{likes}</span>Likes
               </Button>
               <Button variant="ghost" className="flex items-center">
@@ -295,7 +318,26 @@ export default function ProjectPage({ params }: PageProps) {
           </CardFooter>
         </Card>
 
-        <Card className="mb-8 dark:bg-[#1c1c1c]">
+        {
+          user?.userId !== project.ownerId && 
+          <Card>
+            <CardContent className="flex flex-col items-center text-center p-6 dark:bg-[#1c1c1c] ">
+              <div className="bg-muted p-4 py-4 rounded-full mb-4 ">
+                <User className="h-12 w-12 text-primary" />
+              </div>
+              <CardTitle className="text-2xl font-bold mb-2">Want to Participate?</CardTitle>
+              <p className="text-muted-foreground mb-4">Join our community and contribute to exciting projects like this one!</p>
+              {
+                user ?
+                <ParticipateButton requiredSkills={project.requiredSkills} inviteeUsername={project.ownerUsername} inviter={user!.userId} inviteeId={project.ownerId} project={project._id} projectName={project.title}/>
+                :
+                <p>Please login first and refresh the page to participate in project</p>
+              }
+            </CardContent>
+          </Card>
+        }
+
+        <Card className="mb-8 mt-8 dark:bg-[#1c1c1c]">
           <CardHeader>
             <CardTitle className="text-2xl font-bold">Comments</CardTitle>
           </CardHeader>
@@ -336,26 +378,7 @@ export default function ProjectPage({ params }: PageProps) {
           </CardContent>
         </Card>
         
-        {
-          user?.userId !== project.ownerId && 
-          <Card>
-            <CardContent className="flex flex-col items-center text-center p-6 dark:bg-[#1c1c1c]">
-              <div className="bg-muted p-4 py-4 rounded-full mb-4">
-                <User className="h-12 w-12 text-primary" />
-              </div>
-              <CardTitle className="text-2xl font-bold mb-2">Want to Participate?</CardTitle>
-              <p className="text-muted-foreground mb-4">Join our community and contribute to exciting projects like this one!</p>
-              {
-                user ?
-                <ParticipateButton requiredSkills={project.requiredSkills} inviteeUsername={project.ownerUsername} inviter={user!.userId} inviteeId={project.ownerId} project={project._id} projectName={project.title}/>
-                :
-                <p>Please login first and refresh the page to participate in project</p>
-              }
-            </CardContent>
-          </Card>
-        }
-
-        <Card className="mb-8 border-none mt-10 shadow-none dark:bg-[#1c1c1c]">
+        <Card className="border-none mt-10 shadow-none dark:bg-[#1c1c1c]">
           <CardHeader>
             <CardTitle className="text-2xl font-bold">Related Projects</CardTitle>
           </CardHeader>

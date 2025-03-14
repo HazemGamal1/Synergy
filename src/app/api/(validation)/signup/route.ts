@@ -21,7 +21,12 @@ export async function POST(request: Request) {
             name,
             email,
             username,
-            password : hashedPassword
+            password : hashedPassword,
+            github: "",
+            linkedin: "",
+            twitter: "",
+            youtube: "",
+            website: ""
         });
 
         // Save the user to the database

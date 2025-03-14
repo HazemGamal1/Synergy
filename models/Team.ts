@@ -4,7 +4,8 @@ export interface IMember {
     userId: string,
     username: string,
     initials: string,
-    id: string
+    id: string,
+    position: string
 }
 export interface ITeam {
     title: string,
@@ -20,7 +21,8 @@ const TeamSchema : Schema = new Schema({
         {
             userId: { type: mongoose.Schema.Types.ObjectId , ref: 'User'}, 
             username: {type: String, required: true}, 
-            initials: {type: String, required: false}
+            initials: {type: String, required: false},
+            positions: { type: String, required: false }
         }
     ]
 })

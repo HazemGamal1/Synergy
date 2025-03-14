@@ -6,17 +6,13 @@ import { useEffect, useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { IProject } from "../../../models/Project"
 import ProjectCard from "../projects/ProjectCard"
-
-interface IUser {
-  name: string,
-  email: string,
-  username: string
-}
+import { IUser } from "../../../models/User"
+import PageLoading from "../PageLoading"
 
 
 
 export default function UserProfile() {
-  const [user, setUser] = useState<IUser>({name: 'user', email: 'user', username:' user'});
+  const [user, setUser] = useState<IUser>();
   const [projects, setProjects] = useState<IProject[]>([]);
   const [projectIsLoading, setProjectIsLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -41,6 +37,7 @@ export default function UserProfile() {
       handleGetUserData();
   }, []);
 
+  if(!user) return <PageLoading />
   return (
     <div className="container mx-auto px-4 py-5">
       <Card className="border-none shadow-none">
@@ -55,30 +52,6 @@ export default function UserProfile() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {/* {user.skills.map((skill, index) => (
-              <span
-                key={index}
-                className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
-              >
-                {skill}
-              </span>
-            ))} */}
-          </div>
-          <div className="flex flex-wrap gap-4 mb-6">
-            {/* <Link href={`mailto:${user.email}`} className="flex items-center text-muted-foreground hover:text-primary">
-              <Mail className="mr-2 h-4 w-4" />
-              {user.email}
-            </Link> */}
-            {/* <Link href={`https://github.com/${user.github}`} className="flex items-center text-muted-foreground hover:text-primary"> */}
-              {/* <GitHub className="mr-2 h-4 w-4" /> */}
-              {/* {user.github} */}
-            {/* </Link> */}
-            {/* <Link href={`https://linkedin.com/in/${user.linkedin}`} className="flex items-center text-muted-foreground hover:text-primary"> */}
-              {/* <Linkedin className="mr-2 h-4 w-4" /> */}
-              {/* {user.linkedin} */}
-            {/* </Link> */}
-          </div>
           <Tabs defaultValue="projects">
             <TabsList>
               <TabsTrigger value="projects">Projects</TabsTrigger>

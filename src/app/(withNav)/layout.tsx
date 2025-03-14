@@ -1,6 +1,6 @@
 "use client"
 import SideNav from '@/components/SideNav/SideNav'
-import { Handshake, Menu, User, Users2} from 'lucide-react'
+import { Bell, Handshake, LogIn, LogInIcon, LogOut, Menu, User, Users2} from 'lucide-react'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
@@ -31,7 +31,15 @@ const Layout = ({ children }: { children : React.ReactNode}) => {
       }
 
       handleGetUserData();
-}, []);
+  }, []);
+
+  const handleLogout = async () => {
+    const response = await fetch('/api/logout', {
+        method: 'GET',
+        credentials: 'include',
+    });
+};
+
   return (
     <div>
       <nav className='w-full sticky top-0 z-[10] border-b flex items-center justify-between p-4 bg-[#F3F4F6] dark:bg-[#141414] xl:hidden'>
@@ -41,28 +49,44 @@ const Layout = ({ children }: { children : React.ReactNode}) => {
               <h1 className="text-lg font-bold">Synergy</h1>
             </Link>
         </div>
-        <div  className='ml-auto'>
+        <div  className='ml-auto flex gap-2 items-center'>
           <DropdownMenu>
             <DropdownMenuTrigger>
                 <Menu />
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>
-                <Link href={"/profile"} className='flex gap-2 items-center'>
-                  <User /> Profile
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href={"/invitations"} className='flex gap-2 items-center'>
-                  <Handshake /> Invitations
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href={"/teams"} className='flex gap-2 items-center'>
-                  <Users2 /> Teams
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
+            {
+              isAuthenticated ?
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link href={"/profile"} className='flex gap-2 items-center'>
+                    <User /> Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={"/invitations"} className='flex gap-2 items-center'>
+                    <Handshake /> Invitations
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={"/teams"} className='flex gap-2 items-center'>
+                    <Users2 /> Teams
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <button onClick={handleLogout} className='flex gap-2 items-center'>
+                    <LogOut /> Logout
+                  </button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+              :
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link href={"/signin"}className='flex gap-2 items-center'>
+                    <LogInIcon /> Sign in
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            }
           </DropdownMenu>
         </div>
       </nav>
