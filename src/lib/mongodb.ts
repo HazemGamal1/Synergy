@@ -1,20 +1,10 @@
-import Invitation, { IInvitation } from "../../models/Invitation";
-import Team, { ITeam } from "../../models/Team";
+import Invitation from "../../models/Invitation";
 
-export function watchInvitations(callback: (invitation : IInvitation) => void) {
+export function watchInvitations(callback: (invitation : any) => void) {
   const changeStream = Invitation.watch();
   changeStream.on('change', (change) => {
     if (change.operationType === 'insert') {
       callback(change.fullDocument);
     }
   });
-}
-
-export function watchTeams(callback: (team: ITeam ) => void) {
-  const changeStream = Team.watch();
-  changeStream.on('change', (change) => {
-    if(change.operationType === 'insert'){
-      callback(change.fullDocument);
-    }
-  })
 }

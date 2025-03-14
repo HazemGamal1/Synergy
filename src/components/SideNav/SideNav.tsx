@@ -50,6 +50,9 @@ export default function SideNav( { isAuthenticated, onChangeAuth } : { isAuthent
         const handleGetProjects = async () => {
           setIsLoading(true);
           try{
+            const resInv = await fetch("/api/get-invitations");
+            const dataInv = await resInv.json();
+            setInvitations(dataInv)
             const resUserProj = await fetch("/api/projects/get-user-projects");
             const dataUserProjs = await resUserProj.json();
             setUserProjects(dataUserProjs);
