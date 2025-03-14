@@ -283,17 +283,38 @@ export default function ProjectPage({ params }: PageProps) {
                 <h3 className="text-lg font-semibold mb-2 flex gap-2 items-center"><Github /> Github Repo</h3>
                 <div className="flex flex-wrap gap-2 mb-4">
                   <LinkIcon />
-                  <p className='text-muted-foreground'>{project.githubRepo}</p>                
+                  {
+                    project.githubRepo ?
+                    <a href={project.githubRepo} className="hover:underline hover:text-blue-600" target="#">
+                      {project.githubRepo}
+                    </a>
+                    :
+                    <p className="text-muted-foreground">No data found</p>
+                  }
                 </div>
                 <h3 className="text-lg font-semibold mb-2 flex gap-2 items-center"><Image src={WhatsappIcon} width={20} height={20} alt='whatsappIcon'/> Whatsapp Link</h3>
                 <div className="flex flex-wrap gap-2 mb-4 ">
                   <LinkIcon />
-                  <p className='text-muted-foreground'>{project.whatsAppLink}</p>
+                  {
+                    project.whatsAppLink ?
+                    <a href={project.whatsAppLink} className="hover:underline hover:text-blue-600" target="#">
+                      {project.whatsAppLink}
+                    </a>
+                    :
+                    <p className="text-muted-foreground">No data found</p>
+                  }
                 </div>
                 <h3 className="text-lg font-semibold mb-2 flex gap-2 items-center"><Image src={DiscordIcon} width={20} height={20} alt='whatsappIcon'/> Discord Chat</h3>
                 <div className="flex flex-wrap gap-2 mb-4">
                   <LinkIcon />
-                  <p className='text-muted-foreground'>{project.discordLink}</p>  
+                  {
+                    project.discordLink ?
+                    <a href={project.discordLink} className="hover:underline hover:text-blue-600" target="#">
+                      {project.discordLink}
+                    </a>
+                    :
+                    <p className="text-muted-foreground">No data found</p>
+                  }
                 </div>
               </TabsContent>
             </Tabs>

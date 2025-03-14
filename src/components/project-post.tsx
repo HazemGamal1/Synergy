@@ -104,7 +104,7 @@ export function ProjectPost() {
         <Card className="lg:w-[350px] mt-4 px-4 bg-transparent backdrop-blur-3xl">
           <CardContent className='grid place-content-center text-center p-20'>
             <CheckCircle2Icon className='text-green-500 text-2xl mx-auto mb-3' size={"60px"}/>
-            <h1>Post created successfully successfully!</h1>
+            <h1>Post created successfully!</h1>
             <p className='animate-pulse'>Redirecting...</p>
           </CardContent>
         </Card>

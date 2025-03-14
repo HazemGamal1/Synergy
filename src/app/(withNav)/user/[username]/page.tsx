@@ -18,7 +18,7 @@ const User = ({ params }: PageProps) => {
   const [projects, setProjects] = useState<IProject[]>([])
   const [projectIsLoading, setProjectIsLoading] = useState<boolean>(false);
   const [invVisible, setInvVisisble] = useState<boolean>(true);
-  
+
   useEffect(() => {
     const getUser = async () => {
       setProjectIsLoading(true);
@@ -114,11 +114,14 @@ const User = ({ params }: PageProps) => {
                       <Github />
                       Github
                     </p>
-                    <a href={user.github} className="hover:underline hover:text-blue-600" target="#">
-                      {
-                        user.github
-                      }
-                    </a>
+                    {
+                      user.github ?
+                      <a href={user.github} className="hover:underline hover:text-blue-600" target="#">
+                        {user.github}
+                      </a>
+                      :
+                      <p className="text-muted-foreground">No data found</p>
+                    }
                   </div>
                   <div className="grid gap-1 w-full border p-4 rounded-lg">
                     <p className="flex gap-2 items-center text-muted-foreground">
@@ -126,13 +129,13 @@ const User = ({ params }: PageProps) => {
                       LinkedIn
                     </p>
                     {
-                        user.linkedin ?
-                        <a href={user.linkedin} className="hover:underline hover:text-blue-600" target="#">
-                          {user.linkedin}
-                        </a>
-                        :
-                        <p className="text-muted-foreground">No data found</p>
-                      }
+                      user.linkedin ?
+                      <a href={user.linkedin} className="hover:underline hover:text-blue-600" target="#">
+                        {user.linkedin}
+                      </a>
+                      :
+                      <p className="text-muted-foreground">No data found</p>
+                    }
                   </div>
                   <div className="grid gap-1 w-full border p-4 rounded-lg">
                     <p className="flex gap-2 items-center text-muted-foreground">

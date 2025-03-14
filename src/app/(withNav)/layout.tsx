@@ -1,6 +1,6 @@
 "use client"
 import SideNav from '@/components/SideNav/SideNav'
-import { Bell, Handshake, LogIn, LogInIcon, LogOut, Menu, User, Users2} from 'lucide-react'
+import { Handshake, LogInIcon, LogOut, Menu, User, Users2} from 'lucide-react'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
@@ -38,6 +38,10 @@ const Layout = ({ children }: { children : React.ReactNode}) => {
         method: 'GET',
         credentials: 'include',
     });
+
+    if(response.ok){
+      setIsAuthenticated(false)
+    }
 };
 
   return (
