@@ -9,8 +9,8 @@ import InvitationButton from "@/components/Invitations/InvitationButton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IProject } from "../../../../../models/Project"
 import ProjectCard from "@/components/projects/ProjectCard"
-import { PageProps } from "../../../../../../.next/types/app/(withNav)/user/[username]/page"
 import { Github, Linkedin, Twitter, Youtube, Globe } from "lucide-react"
+import { PageProps } from "../../../../../.next/types/app/(withNav)/user/[username]/page"
 
 
 const User = ({ params }: PageProps) => {
