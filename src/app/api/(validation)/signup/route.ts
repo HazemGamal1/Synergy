@@ -2,11 +2,12 @@ import { NextResponse } from 'next/server';
 import User from '../../../../../models/User';
 //@ts-expect-error no_explanation
 import bcrypt from 'bcryptjs';
+import { connectDb } from '@/lib/mongoose';
 
 export async function POST(request: Request) {
     try {
+        await connectDb();
         const { name, email, username, password } = await request.json();
-
         // Check if the user already exists
         const existingUserName = await User.findOne({ username });
         if(existingUserName)
@@ -34,6 +35,6 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ message: 'User created successfully' }, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ message: `Error signing in user -> error : ${error} `}, { status: 500 });
+        return NextResponse.json({ message: `Error signing up user -> error : ${error} `}, { status: 500 });
     }
 }
