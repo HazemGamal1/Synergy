@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from '../ui/input'
-import { AnimatePresence, motion } from 'framer-motion'
 import { Check, Plus } from 'lucide-react'
 import Image from 'next/image'
 import authLogo from "../../../public/authLogo.svg"
@@ -77,85 +76,42 @@ export default function SkillSelectionPage() {
         Select the skills that best describe your passion
       </p>
       <div className="max-w-[570px] mx-auto">
-        <motion.div 
+        <div 
           className="flex flex-wrap gap-3 overflow-visible"
-          layout
-          transition={{
-            type: "spring",
-            stiffness: 500,
-            damping: 30,
-            mass: 0.5,
-          }}
         >
           {skillsData.map((skill) => {
             const isSelected = selectedSkills.includes(skill.name)
             return (
-              <motion.button
+              <button
                 key={skill.id}
                 onClick={() => toggleSkill(skill.name)}
-                layout
-                initial={false}
-                animate={{
-                  backgroundColor: isSelected ? "#2267f0" : "rgba(39, 39, 42, 0.5)",
-                }}
-                whileHover={{
-                  backgroundColor: isSelected ? "#2267f0" : "rgba(39, 39, 42, 0.8)",
-                }}
-                whileTap={{
-                  backgroundColor: isSelected ? "#2267f0" : "rgba(39, 39, 42, 0.9)",
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 500,
-                  damping: 30,
-                  mass: 0.5,
-                  backgroundColor: { duration: 0.1 },
-                }}
                 className={`
                   inline-flex items-center px-4 py-2 rounded-full text-base font-medium
                   whitespace-nowrap overflow-hidden ring-1 ring-inset
                   ${isSelected 
-                    ? "text-[#FFF] ring-[hsla(0,0%,100%,0.12)]" 
+                    ? "text-[#FFF] ring-[hsla(0,0%,100%,0.12)] bg-blue-500" 
                     : "text-zinc-400 ring-[hsla(0,0%,100%,0.06)]"}
                 `}
               >
-                <motion.div 
-                  className="relative flex items-center"
-                  animate={{ 
-                    width: isSelected ? "auto" : "100%",
-                    paddingRight: isSelected ? "1.5rem" : "0",
-                  }}
-                  transition={{
-                    ease: [0.175, 0.885, 0.32, 1.275],
-                    duration: 0.3,
-                  }}
+                <div 
+                  className={`relative flex items-center gap-4`}
                 >
                   <span>{skill.name}</span>
-                  <AnimatePresence>
+                  <div>
                     {isSelected && (
-                      <motion.span
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0, opacity: 0 }}
-                        transition={{ 
-                          type: "spring", 
-                          stiffness: 500, 
-                          damping: 30, 
-                          mass: 0.5 
-                        }}
-                        className="absolute right-0"
+                      <span
                       >
                         <div className="w-4 h-4 rounded-full bg-[#29a9f2] flex items-center justify-center">
                           <Check className="w-3 h-3 text-[#2a1711]" strokeWidth={1.5} />
                         </div>
-                      </motion.span>
+                      </span>
                     )}
-                  </AnimatePresence>
-                </motion.div>
-              </motion.button>
+                  </div>
+                </div>
+              </button>
             )
           })}
-        </motion.div>
+        </div>
       </div>
       <div className='my-8 text-center'>
         <p className='text-muted-foreground'>Could not find your skill?</p>
