@@ -32,13 +32,13 @@ export function ProjectPost() {
   const [shortDescription, setShortDescription] = useState('');
   const [detailedDescription, setDetailedDescription] = useState('');
   const [requiredSkills, setSkills] = useState<string[]>([]);
-  // const [estimatedCompletion, setEstimatedCompletion] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [githubRepo, setGithubRepo] = useState("");
   const [whatsAppLink, setWhatsAppLink] = useState("");
   const [discordLink, setDiscordLink] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
+  const [isInParticipants, setIsInParticipants] = useState<boolean>(false);
   const [error, setError] = useState("");
   const [participants, setParticipants] = useState<IParticipant[]>([]);
   const [isCreated, setIsCreated] = useState(false);
@@ -46,6 +46,10 @@ export function ProjectPost() {
   const router = useRouter();
   async function onAddMember() {
     setIsLoading(true)
+    if(participants.some((user) => user.username === username)){
+      setIsInParticipants(true);
+      return;
+    }
     try{
         const response = await fetch(`/api/user?username=${username}`, {
             method: "GET",
@@ -110,7 +114,7 @@ export function ProjectPost() {
         </Card>
         :
         <>
-          <Card className='border-none w-full '>
+          <Card className='w-full  dark:bg-[#1c1c1c]'>
             <CardHeader>
               <CardTitle className="text-3xl font-bold">Post a New Project</CardTitle>
             </CardHeader>
@@ -178,18 +182,6 @@ export function ProjectPost() {
                     ))}
                   </div>
                 </div>
-
-                {/* <div className="space-y-2">
-                  <Label htmlFor="estimatedCompletion">Estimated Completion Date</Label>
-                  <Input
-                    id="estimatedCompletion"
-                    type="date"
-                    value={estimatedCompletion}
-                    onChange={(e) => setEstimatedCompletion(e.target.value)}
-                    required
-                  />
-                </div> */}
-
                 <div className="space-y-2">
                   <Label htmlFor="discordLink" className='flex gap-2 items-center mb-4'><LinkIcon size={'20px'}/> Links <span className='text-muted-foreground'>(All links are optional)</span></Label>
                   <div className='flex gap-2 items-center'>    
@@ -222,18 +214,8 @@ export function ProjectPost() {
                     />
                   </div>
                 </div>
-    {/* 
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="isPublic"
-                    checked={isPublic}
-                    onCheckedChange={setIsPublic}
-                  />
-                  <Label htmlFor="isPublic">Make project public</Label>
-                </div> */}
-
                 <CardFooter className="px-0">
-                  <Button type="submit" disabled={isSubmitting} className="w-full">
+                  <Button type="submit" variant={"SynMain"} disabled={isSubmitting} className="w-full">
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -250,17 +232,17 @@ export function ProjectPost() {
               </form>
             </CardContent>
           </Card>
-          <div className='w-full xl:w-[30%] mt-2 border py-5 px-2 xl:ml-4 max-h-max rounded-lg'>
+          <div className='w-full xl:w-[30%] mt-2 border py-5 px-2 xl:ml-4 max-h-max rounded-lg bg-white dark:bg-[#1c1c1c]'>
             <p className='flex gap-2 mb-2'><span><User /></span>Participants</p>
             <p className='text-muted-foreground text-sm'>if you have team members that use synergy add them to the participants list</p>
             <form className='my-4'>
             <div className="grid gap-4 py-4">
                     <div className="grid gap-2">
-                        <Label htmlFor="id">Participant user id:</Label>
+                        <Label htmlFor="id">Participant username:</Label>
                         <div className='flex items-center'>
                         <Input
                             id="id"
-                            placeholder="example123"
+                            placeholder="Enter username"
                             type="text"
                             autoCapitalize="none"
                             autoCorrect="off"
@@ -268,9 +250,12 @@ export function ProjectPost() {
                             className='rounded-r-none'
                             onChange={(e : React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                         />
-                        <Button type='button' className='p-2 duration-300 rounded-l-none' onClick={onAddMember}>
+                        <Button type='button' className='p-2 duration-300 rounded-l-none' disabled={isLoading} onClick={onAddMember}>
                             <Plus />
                         </Button>
+                        {
+                          isInParticipants && <span className='text-red-500'>Already in participants</span>
+                        }
                         </div>
                     </div>
                     {
@@ -298,7 +283,6 @@ export function ProjectPost() {
                     </div>
                 </div>
             </form>
-            {/* <h3 className='text-sm text-muted-foreground'>Add users of one of your teams as participants</h3> */}
           </div>
         </>
       }

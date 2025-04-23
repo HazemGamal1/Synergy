@@ -43,7 +43,8 @@ export default function CreateTeamButton() {
             if(response.ok){
                 setError("");
                 const data = await response.json();
-                setMembers( prev => [...prev, { userId: data._id, username: data.username, initials: data.name[0] + data.name[1], position  }])
+                console.log(position)
+                setMembers( prev => [...prev, { userId: data._id, username: data.username, initials: data.name[0] + data.name[1], position }])
             }
         }catch(error){
             console.log(error)
@@ -68,8 +69,6 @@ export default function CreateTeamButton() {
             }
             if(response.ok){
                 setError("");
-                const data = await response.json();
-                console.log(data)
             }
         }catch(error){
             console.log(error);
@@ -81,13 +80,13 @@ export default function CreateTeamButton() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="link" className='mt-3 flex p-0 items-center hover:no-underline hover:opacity-90'>
-            <div className='rounded-full bg-[#2F9BF7] p-0.5'>
-                <Plus size={"15px"} className='text-white dark:text-black'/>
+            <div className='rounded-full bg-main p-0.5'>
+                <Plus size={"15px"} className='text-white dark:text-white'/>
             </div>
-            <p className='text-[#2F9BF7] capitalize font-semibold'>Create new team</p>
+            <p className='text-main dark:text-white capitalize font-semibold'>Create new team</p>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[465px]  border-none rounded-lg">
+      <DialogContent className="sm:max-w-[465px] border-none rounded-none">
         <DialogHeader>
           <DialogTitle className='flex gap-2 items-center'><Users2 className='text-muted-foreground'/> Create a new team</DialogTitle>
           <DialogDescription>

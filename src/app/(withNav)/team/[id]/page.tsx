@@ -26,19 +26,19 @@ const Team = ({ params } : PageProps ) => {
     if(!team) return <SpinnerLoading />
   return (
     <div>
-        <section className='p-4 border-t'>
+        <section className='p-4 border-t container mx-auto'>
                 <h3 className='text-muted-foreground'>Members</h3>
-                <div className='grid grid-cols-2 lg:grid-cols-4 gap-2'>
+                <div className='grid grid-cols-2 lg:grid-cols-6 gap-2'>
                     {
                         team?.members.map((member, idx) => (
-                            <Link href={`/user/${member.username}`} key={idx} className='flex dark:bg-[#1a1a1a] flex-col gap-3 h-[10rem] justify-center rounded-lg text-center mt-3 px-1 py-2 dark:hover:bg-[#1c1c1c] duration-300'>
+                            <Link href={`/user/${member.username}`} key={idx} className='flex dark:bg-[#1a1a1a] border  hover:bg-slate-100  flex-col gap-3 h-[10rem] justify-center rounded-lg text-center mt-3 px-1 py-2 dark:hover:bg-[#1c1c1c] duration-300'>
                                 <div className=' mx-auto'>
-                                    <div className='dark:bg-[#1e1e1e] border p-1 rounded-full w-9 h-9 uppercase'>
+                                    <div className='dark:bg-[#1e1e1e] bg-white border p-1 rounded-full w-9 h-9 uppercase'>
                                         {member.initials}
                                     </div>
                                 </div>
                                 @{member.username}
-                                <p className='text-blue-600'>
+                                <p className='text-main'>
                                     {member.position}
                                 </p>
                             </Link>  

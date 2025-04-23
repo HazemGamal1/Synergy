@@ -3,7 +3,38 @@
 @tailwind components;
 @tailwind utilities;
 body {
+  font-family: 'Arial';
+  background: #f6f6f6;
   font-optical-sizing: auto;
+}
+.cta-button {
+  padding: 10px;
+  width: 100%;
+  margin-top: 18px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(270deg, #ff0051, #1c1c1c, #f73b83);
+  background-size: 600% 600%;
+  animation: gradientFlow 10s ease infinite;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+}
+
+@keyframes gradientFlow {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
 }
 
 .stylized{

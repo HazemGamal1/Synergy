@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Label } from "@/components/ui/label"
 import { Github, Linkedin, Twitter, Youtube, Globe } from "lucide-react"
 import Image from "next/image"
-import authLogo from "../../../public/authLogo.svg"
+import authLogo from "../../../public/logo.svg"
 import { useRouter } from "next/navigation"
 
 export default function SocialLinksPage() {
@@ -45,13 +45,13 @@ export default function SocialLinksPage() {
   }
 
   return (
-    <div className="bg-gradient-to-b relative from-blue-500/10 via-purple-800/5 to-transparent">
+    <div className="bg-gradient-to-b relative">
       <div className="container grid place-content-center w-full min-h-screen mx-auto py-10 px-4 max-w-3xl">
-        <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4"/>
         <Card className="backdrop-blur-3xl bg-transparent">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold">Social Links</CardTitle>
-            <CardDescription>Add your social media profiles to connect with your audience.</CardDescription>
+          <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4" width={60}/>
+            <CardTitle className="text-2xl font-bold mx-auto">Social Links</CardTitle>
+            <CardDescription className="text-center">Add your social media profiles to connect with your audience.</CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="github" className="w-full">
@@ -66,7 +66,7 @@ export default function SocialLinksPage() {
                 </TabsTrigger>
                 <TabsTrigger value="twitter" className="flex items-center gap-2">
                   <Twitter className="h-4 w-4" />
-                  <span className="hidden md:inline">Twitter</span>
+                  <span className="hidden md:inline">X</span>
                 </TabsTrigger>
                 <TabsTrigger value="youtube" className="flex items-center gap-2">
                   <Youtube className="h-4 w-4" />
@@ -105,7 +105,7 @@ export default function SocialLinksPage() {
                     icon={<Twitter className="h-5 w-5" />}
                     value={twitter}
                     onChange={(value) => setTwitter(value)}
-                    placeholder="https://twitter.com/username"
+                    placeholder="https://X.com/username"
                   />
                 </TabsContent>
 
@@ -132,7 +132,7 @@ export default function SocialLinksPage() {
             </Tabs>
           </CardContent>
           <CardFooter>
-            <Button onClick={handleSave} className="ml-auto">
+            <Button variant={"SynMain"} onClick={handleSave} className="ml-auto">
               Save All Links
             </Button>
           </CardFooter>

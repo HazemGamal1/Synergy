@@ -4,13 +4,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Bot, Loader} from 'lucide-react'
 import { useEffect, useState } from "react"
 import { IUser } from "../../../../../models/User";
-import PageLoading from "@/components/PageLoading"
 import InvitationButton from "@/components/Invitations/InvitationButton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IProject } from "../../../../../models/Project"
 import ProjectCard from "@/components/projects/ProjectCard"
 import { Github, Linkedin, Twitter, Youtube, Globe } from "lucide-react"
 import { PageProps } from "../../../../../.next/types/app/(withNav)/user/[username]/page"
+import SpinnerLoading from "@/components/SpinnerLoading"
 
 
 const User = ({ params }: PageProps) => {
@@ -48,7 +48,7 @@ const User = ({ params }: PageProps) => {
       }
       getUser();
   }, []);
-  if(!user) return <PageLoading />
+  if(!user) return <SpinnerLoading />
   return (
     <div className="container mx-auto px-4 py-15">
       <Card className="border-none shadow-none">
@@ -116,7 +116,7 @@ const User = ({ params }: PageProps) => {
                     </p>
                     {
                       user.github ?
-                      <a href={user.github} className="hover:underline hover:text-blue-600" target="#">
+                      <a href={user.github} className="hover:underline hover:text-main" target="#">
                         {user.github}
                       </a>
                       :
@@ -130,7 +130,7 @@ const User = ({ params }: PageProps) => {
                     </p>
                     {
                       user.linkedin ?
-                      <a href={user.linkedin} className="hover:underline hover:text-blue-600" target="#">
+                      <a href={user.linkedin} className="hover:underline hover:text-main" target="#">
                         {user.linkedin}
                       </a>
                       :
@@ -144,7 +144,7 @@ const User = ({ params }: PageProps) => {
                     </p>
                     {
                         user.twitter ?
-                        <a href={user.twitter} className="hover:underline hover:text-blue-600" target="#">
+                        <a href={user.twitter} className="hover:underline hover:text-main" target="#">
                           {user.twitter}
                         </a>
                         :
@@ -158,7 +158,7 @@ const User = ({ params }: PageProps) => {
                     </p>
                     {
                       user.youtube ?
-                      <a href={user.github} className="hover:underline hover:text-blue-600" target="#">
+                      <a href={user.github} className="hover:underline hover:text-main" target="#">
                         {user.youtube}
                       </a>
                       :
@@ -172,7 +172,7 @@ const User = ({ params }: PageProps) => {
                     </p>
                     {
                         user.website ?
-                        <a href={user.website} className="hover:underline hover:text-blue-600" target="#">
+                        <a href={user.website} className="hover:underline hover:text-main" target="#">
                           {user.website}
                         </a>
                         :

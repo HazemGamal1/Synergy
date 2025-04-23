@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 import { IUser } from './User';
 
 export interface IProject extends Document {
+    _id: string,
     title: string;
     ownerId: string;
     ownerUsername: string;

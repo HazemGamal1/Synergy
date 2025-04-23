@@ -8,7 +8,7 @@ import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import SpinnerLoading from './SpinnerLoading'
 import Image from 'next/image'
-import authLogo from "../../public/authLogo.svg"
+import authLogo from "../../public/logo.svg"
 import { useRouter } from 'next/navigation'
 import { CheckCircle2Icon } from 'lucide-react'
 
@@ -36,7 +36,7 @@ export default function SignUpPage() {
           headers: {
           'Content-Type': "application/json",
           },
-          body : JSON.stringify({ name , password , email , username})
+          body : JSON.stringify({ name , password , email , username: username?.toLowerCase()})
       })
       const data = await response.json();
       if(data.message === "Username already used")
@@ -65,7 +65,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="bg-gradient-to-t relative from-blue-500/10 via-purple-800/5 to-transparent">
+    <div className="relative">
       <div className="container mx-auto flex h-screen w-screen flex-col items-center justify-center px-4 lg:px-0">
         {
           userIsCreated ?
@@ -78,16 +78,16 @@ export default function SignUpPage() {
           </Card>
           :
           <>
-            <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4"/>
             {isLoading && <SpinnerLoading />}
-            <Card className="lg:w-[450px] px-4 backdrop-blur-3xl bg-transparent">
-              <CardHeader className="space-y-1">
+            <Card className="lg:w-[450px] px-4">
+              <Image src={authLogo} alt="logoAuthentication" width={60} className="mx-auto my-4"/>
+              <CardHeader className='p-0 pb-4 text-center'>
                 <CardTitle className="text-2xl">Create an account</CardTitle>
                 <CardDescription>
-                  Enter your email below to create your account
+                  Enter your information below to create your account
                 </CardDescription>
               </CardHeader>
-              <CardContent className="grid gap-4 mb-4">
+              <CardContent className="grid gap-4 mb-4 p-2">
                 <form onSubmit={onSubmit}>
                   <div className="grid gap-2 mb-4">
                     <Label htmlFor="name">Name</Label>
@@ -146,21 +146,21 @@ export default function SignUpPage() {
                   {
                     <p className='text-red-500 mt-4 text-center'>{error}</p>
                   }
-                  <Button className="w-full mt-4" type="submit" disabled={isLoading}>
+                  <Button className="w-full mt-4 bg-main hover:bg-black text-white" type="submit" disabled={isLoading}>
                     Sign Up
                   </Button>
                 </form>
               </CardContent>
+              <p className="my-4 text-center text-sm text-muted-foreground">
+                Already have an account?{" "}
+                <Link
+                  href="/signin"
+                  className="hover:text-brand underline underline-offset-4 text-blue-500"
+                >
+                  Sign in
+                </Link>
+              </p>
             </Card>
-            <p className="mt-4 text-center text-sm text-muted-foreground">
-              Already have an account?{" "}
-              <Link
-                href="/signin"
-                className="hover:text-brand underline underline-offset-4"
-              >
-                Sign in
-              </Link>
-            </p>
           </>
         }
       </div>

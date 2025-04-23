@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from '../ui/input'
 import { Check, Plus } from 'lucide-react'
 import Image from 'next/image'
-import authLogo from "../../../public/authLogo.svg"
+import authLogo from "../../../public/logo.svg"
 import { useRouter } from 'next/navigation'
 
 const skillsData = [
@@ -69,8 +69,8 @@ export default function SkillSelectionPage() {
   }
 
   return (
-    <div className="mx-auto px-4 py-8 grid place-content-center min-h-screen bg-gradient-to-b from-blue-500/10 to-transparent">
-      <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4"/>
+    <div className="mx-auto px-4 py-8 grid place-content-center min-h-screen bg-[white  ]">
+      <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4" width={60}/>
       <h1 className="text-3xl font-bold mb-6 text-center">Choose Your Skills</h1>
       <p className="text-center text-muted-foreground mb-8">
         Select the skills that best describe your passion
@@ -89,7 +89,7 @@ export default function SkillSelectionPage() {
                   inline-flex items-center px-4 py-2 rounded-full text-base font-medium
                   whitespace-nowrap overflow-hidden ring-1 ring-inset
                   ${isSelected 
-                    ? "text-[#FFF] ring-[hsla(0,0%,100%,0.12)] bg-blue-500" 
+                    ? "text-[#FFF] ring-[hsla(0,0%,100%,0.12)] bg-main" 
                     : "text-zinc-400 ring-[hsla(0,0%,100%,0.06)]"}
                 `}
               >
@@ -101,7 +101,7 @@ export default function SkillSelectionPage() {
                     {isSelected && (
                       <span
                       >
-                        <div className="w-4 h-4 rounded-full bg-[#29a9f2] flex items-center justify-center">
+                        <div className="w-4 h-4 rounded-full bg-[#FFFF] flex items-center justify-center">
                           <Check className="w-3 h-3 text-[#2a1711]" strokeWidth={1.5} />
                         </div>
                       </span>
@@ -125,13 +125,14 @@ export default function SkillSelectionPage() {
           {selectedSkills.map(skillId => {
             const skill = skillsData.find(s => s.id === Number(skillId))
             return (
-              <Badge key={skillId} variant="secondary" className='bg-blue-600'>
+              <Badge key={skillId} variant="secondary" className='bg-main'>
                 {skill?.name}
               </Badge>
             )
           })}
         </div>
         <Button
+          variant={"SynMain"}
           onClick={handleSubmit}
           disabled={selectedSkills.length === 0 || isSubmitting}
           className="w-full sm:w-auto"

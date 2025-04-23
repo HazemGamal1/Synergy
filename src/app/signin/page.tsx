@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useRouter } from 'next/navigation'
 import { CheckCircle2Icon } from 'lucide-react'
 import Image from 'next/image'
-import authLogo from "../../../public/authLogo.svg"
+import authLogo from "../../../public/logo.svg"
 import SpinnerLoading from '@/components/SpinnerLoading'
 
 export default function SignIn() {
@@ -52,13 +52,12 @@ export default function SignIn() {
   }
 
   return (
-    <div className="bg-gradient-to-t relative from-blue-500/10 via-purple-800/5 to-transparent">
+    <div className=" relative">
       <div className="container mx-auto flex h-screen w-screen flex-col items-center justify-center px-4 lg:px-0">
-        <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4"/>
         {isLoading && <SpinnerLoading />}
         {
           isLoggedIn ?
-          <Card className="lg:w-[350px] mt-4 px-4 bg-transparent backdrop-blur-3xl">
+          <Card className="lg:w-[350px] mt-4 px-4 ">
             <CardContent className='grid place-content-center text-center p-20'>
               <CheckCircle2Icon className='text-green-500 text-2xl mx-auto mb-3' size={"60px"}/>
               <h1>Logged in successfully!</h1>
@@ -67,11 +66,11 @@ export default function SignIn() {
           </Card>
           :
           <>
-              <Card className="lg:w-[450px] px-4 bg-transparent backdrop-blur-3xl">
+              <Card className="lg:w-[450px] px-4">
               <CardHeader className="space-y-1">
-                  {/* <h1 className='font-normal text-4xl mb-8'>Synergy</h1> */}
-                <CardTitle className="text-2xl">Log in</CardTitle>
-                <CardDescription>
+                <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4" width={60}/>
+                <CardTitle className="text-2xl text-center">Log in</CardTitle>
+                <CardDescription className='text-center'>
                   Enter your username and password below to authenticate
                 </CardDescription>
               </CardHeader>
@@ -114,21 +113,21 @@ export default function SignIn() {
                       Password is incorrect
                     </p>
                   }
-                  <Button className="w-full mt-4" type="submit" disabled={isLoading}>
+                  <Button className="w-full mt-4 bg-main text-white hover:bg-black" type="submit" disabled={isLoading}>
                     Sign in
                   </Button>
                 </form>
               </CardContent>
+              <p className="mt-4 text-center text-sm text-muted-foreground pb-4">
+                Do not have an account?{" "}
+                <Link
+                  href="/signup"
+                  className="hover:text-brand underline underline-offset-4 text-blue-500"
+                >
+                  Sign Up
+                </Link>
+              </p>  
             </Card>
-            <p className="mt-4 text-center text-sm text-muted-foreground">
-              Do not have an account?{" "}
-              <Link
-                href="/signup"
-                className="hover:text-brand underline underline-offset-4"
-              >
-                Sign Up
-              </Link>
-            </p>  
           </>
         }
         

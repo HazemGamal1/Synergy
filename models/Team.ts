@@ -5,7 +5,7 @@ export interface IMember {
     username: string,
     initials: string,
     id: string,
-    position: string
+    position: string,
 }
 export interface ITeam {
     title: string,
