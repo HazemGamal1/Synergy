@@ -57,7 +57,7 @@ export default function SignIn() {
         {isLoading && <SpinnerLoading />}
         {
           isLoggedIn ?
-          <Card className="lg:w-[350px] mt-4 px-4 ">
+          <Card className="lg:w-[350px] mt-4 px-4 dark:bg-white dark:text-black dark:border-gray-200">
             <CardContent className='grid place-content-center text-center p-20'>
               <CheckCircle2Icon className='text-green-500 text-2xl mx-auto mb-3' size={"60px"}/>
               <h1>Logged in successfully!</h1>
@@ -66,7 +66,7 @@ export default function SignIn() {
           </Card>
           :
           <>
-              <Card className="lg:w-[450px] px-4">
+              <Card className="lg:w-[450px] px-4 dark:bg-white dark:text-black dark:border-gray-200">
               <CardHeader className="space-y-1">
                 <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4" width={60}/>
                 <CardTitle className="text-2xl text-center">Log in</CardTitle>
@@ -86,6 +86,7 @@ export default function SignIn() {
                       autoCorrect="off"
                       disabled={isLoading}
                       onChange={(e :  React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value) }
+                      className='dark:bg-white dark:text-black dark:border-gray-200'
                     />
                   </div>
                   <div className="grid gap-2">
@@ -99,6 +100,7 @@ export default function SignIn() {
                       autoCorrect="off"
                       disabled={isLoading}
                       onChange={(e :  React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                      className='dark:bg-white dark:text-black dark:border-gray-200'
                     />
                   </div>
                   {

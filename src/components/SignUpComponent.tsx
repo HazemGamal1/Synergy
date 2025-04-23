@@ -69,7 +69,7 @@ export default function SignUpPage() {
       <div className="container mx-auto flex h-screen w-screen flex-col items-center justify-center px-4 lg:px-0">
         {
           userIsCreated ?
-          <Card className="lg:w-[350px] mt-4 px-4 bg-transparent backdrop-blur-3xl">
+          <Card className="lg:w-[350px] mt-4 px-4 bg-transparent backdrop-blur-3xl dark:bg-white dark:text-black dark:border-gray-200">
             <CardContent className='grid place-content-center text-center p-20'>
               <CheckCircle2Icon className='text-green-500 text-2xl mx-auto mb-3' size={"60px"}/>
               <h1>Signed up successfully!</h1>
@@ -79,7 +79,7 @@ export default function SignUpPage() {
           :
           <>
             {isLoading && <SpinnerLoading />}
-            <Card className="lg:w-[450px] px-4">
+            <Card className="lg:w-[450px] px-4 dark:bg-white dark:text-black dark:border-gray-200">
               <Image src={authLogo} alt="logoAuthentication" width={60} className="mx-auto my-4"/>
               <CardHeader className='p-0 pb-4 text-center'>
                 <CardTitle className="text-2xl">Create an account</CardTitle>
@@ -100,6 +100,7 @@ export default function SignUpPage() {
                       autoCorrect="off"
                       disabled={isLoading}
                       onChange={(e : React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                      className='dark:bg-white dark:text-black dark:border-gray-200'
                     />
                   </div>
                   <div className="grid gap-2 mb-4">
@@ -113,6 +114,7 @@ export default function SignUpPage() {
                       autoCorrect="off"
                       disabled={isLoading}
                       onChange={(e : React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                      className='dark:bg-white dark:text-black dark:border-gray-200'
                     />
                     {errorUsername && <div className='text-red-500'>Username already used</div>}
                   </div>
@@ -127,6 +129,7 @@ export default function SignUpPage() {
                       autoCorrect="off"
                       disabled={isLoading}
                       onChange={(e : React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                      className='dark:bg-white dark:text-black dark:border-gray-200'
                     />
                   </div>
                   <div className="grid gap-2 mt-4">
@@ -140,6 +143,7 @@ export default function SignUpPage() {
                       autoCorrect="off"
                       disabled={isLoading}
                       onChange={(e : React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value) }
+                      className='dark:bg-white dark:text-black dark:border-gray-200'
                     />
                     {errorEmail && <div className='text-red-500'>Email already used</div>}
                   </div>
