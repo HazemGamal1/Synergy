@@ -76,7 +76,7 @@ const Layout = ({ children }: { children : React.ReactNode}) => {
         <nav className='flex justify-between items-center max-w-[1330px] mx-auto'>
           <div className='flex gap-3 items-center'>
             <Link href={"/"}>
-              <Image src={newLogo} alt='logo' width={40}/>
+              <Image src={newLogo} alt='logo' width={30}/>
             </Link>
             <div className='hidden xl:flex gap-1 items-center border w-full rounded-md'>
               <div className=" items-center hidden xl:flex">
@@ -87,21 +87,21 @@ const Layout = ({ children }: { children : React.ReactNode}) => {
               <div className="relative w-full">
                   <input
                       type="text"
-                      className="hidden md:block w-full p-1 border-none focus:outline-none min-w-[40rem] rounded-l-none rounded-md dark:bg-[#1c1c1c]"
+                      className="hidden md:block w-full p-1 text-sm border-none focus:outline-none min-w-[40rem] rounded-l-none rounded-md dark:bg-[#1c1c1c]"
                       placeholder="Search..."
                       value={query}
                       onChange={handleSearch}
                   />
                   
                   {results && query && results.length > 0 && (
-                    <ul className="absolute z-50 w-full mt-1 bg-white dark:bg-[#1c1c1c] border border-gray-300 rounded-lg shadow-lg">
+                    <ul className="absolute z-50 w-full mt-1 bg-white dark:bg-[#1c1c1c] border  rounded-lg shadow-lg">
                       {results.map((item) => (
                           <li
                           key={item._id}
-                          className="p-3 hover:bg-blue-100 cursor-pointer flex flex-col"
+                          className="p-3 hover:bg-blue-100 dark:hover:bg-[#121212] border-gray-300 cursor-pointer flex flex-col"
                           onClick={() => handleSearchClick(item._id)}
                           >
-                          {item.title} <span className="text-blue-600">{item.shortDescription}</span>
+                          {item.title} <span className="text-blue-600 text-sm">{item.shortDescription}</span>
                           </li>
                       ))}
                       </ul>
@@ -114,12 +114,12 @@ const Layout = ({ children }: { children : React.ReactNode}) => {
             !isAuthenticated ?
             <>
               <Link href={"/signin"}>
-                <button className="hover:bg-main/20 w-full text-center p-2 hover:text-main hover:underline underline-offset-2 underline-main rounded-md">
+                <button className="hover:bg-main/20 w-full text-center p-2 dark:hover:text-white hover:text-main hover:underline underline-offset-2 underline-main rounded-md text-sm">
                     Login
                 </button>
               </Link>
               <Link href={"/signup"}>
-                <button className="border font-bold w-full rounded-lg text-main dark:text-white hover:bg-main hover:text-white hover:underline underline-offset-2 border-main dark:border-white p-2">Create account</button>
+                <button className="border w-full rounded-lg text-black bg-white dark:text-black hover:bg-main hover:text-white dark:hover:text-white hover:underline underline-offset-2 border-main dark:border-white p-2 px-4 text-sm">Sign up</button>
               </Link>
             </>
             :

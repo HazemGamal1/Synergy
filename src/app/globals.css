@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   background: #f6f6f6;
   font-optical-sizing: auto;
 }

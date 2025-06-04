@@ -99,7 +99,7 @@ export default function Home() {
                   <button className="border font-bold w-full rounded-lg mt-4 text-main hover:bg-main hover:text-white hover:underline underline-offset-2 border-main dark:hidden p-2">Create account</button>
                 </Link>
                 <Link href={"/signin"}>
-                  <button className="hover:bg-main/20 w-full text-center p-2 mt-2 hover:text-main hover:underline underline-offset-2 underline-main rounded-md">
+                  <button className="hover:bg-main/20 w-full text-center p-2 mt-2 dark:hover:text-white hover:text-main hover:underline underline-offset-2 underline-main rounded-md">
                       Login
                   </button>
                 </Link>
@@ -112,11 +112,14 @@ export default function Home() {
                 <HomeIcon className='text-muted-foreground group-hover:text-black dark:group-hover:text-white'/> <span className='group-hover:text-main dark:group-hover:text-white group-hover:underline underline-offset-1 underline-[#f63d68]'>Home</span>
               </Link>
             </li>
-            <li>
-              <Link href={"/teams"} className='flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-[#101010] w-full p-2 rounded-lg group'>
-                <Users2 className='text-muted-foreground group-hover:text-black dark:group-hover:text-white'/> <span className='group-hover:text-main dark:group-hover:text-white group-hover:underline underline-offset-1 underline-[#f63d68]'>Teams</span>
-              </Link>
-            </li>
+            {
+              isAuthenticated &&
+              <li>
+                <Link href={"/teams"} className='flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-[#101010] w-full p-2 rounded-lg group'>
+                  <Users2 className='text-muted-foreground group-hover:text-black dark:group-hover:text-white'/> <span className='group-hover:text-main dark:group-hover:text-white group-hover:underline underline-offset-1 underline-[#f63d68]'>Teams</span>
+                </Link>
+              </li>
+            }
           </ul>
 
           {

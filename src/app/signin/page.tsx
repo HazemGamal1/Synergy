@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useRouter } from 'next/navigation'
-import { CheckCircle2Icon } from 'lucide-react'
+import { ArrowRightIcon, CheckCircle2Icon } from 'lucide-react'
 import Image from 'next/image'
 import authLogo from "../../../public/logo.svg"
 import SpinnerLoading from '@/components/SpinnerLoading'
@@ -68,16 +68,16 @@ export default function SignIn() {
           <>
               <Card className="lg:w-[450px] px-4 dark:bg-white dark:text-black dark:border-gray-200">
               <CardHeader className="space-y-1">
-                <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4" width={60}/>
-                <CardTitle className="text-2xl text-center">Log in</CardTitle>
-                <CardDescription className='text-center'>
+                <Image src={authLogo} alt="logoAuthentication" className="mx-auto mb-4" width={40}/>
+                <CardTitle className="text-xl text-center">Continue to your account</CardTitle>
+                <CardDescription className='text-center text-sm'>
                   Enter your username and password below to authenticate
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-4 mb-4">
                 <form onSubmit={onSubmit}>
                   <div className="grid gap-2 mb-4">
-                    <Label htmlFor="username">Username</Label>
+                    <Label htmlFor="username" className='text-sm font-semibold'>Username</Label>
                     <Input
                       id="username"
                       placeholder="username"
@@ -86,7 +86,7 @@ export default function SignIn() {
                       autoCorrect="off"
                       disabled={isLoading}
                       onChange={(e :  React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value) }
-                      className='dark:bg-white dark:text-black dark:border-gray-200'
+                      className='dark:bg-white dark:text-black dark:border-gray-200 text-xs dark:focus:bg-slate-50'
                     />
                   </div>
                   <div className="grid gap-2">
@@ -100,7 +100,7 @@ export default function SignIn() {
                       autoCorrect="off"
                       disabled={isLoading}
                       onChange={(e :  React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                      className='dark:bg-white dark:text-black dark:border-gray-200'
+                      className='dark:bg-white dark:text-black dark:border-gray-200 text-xs'
                     />
                   </div>
                   {
@@ -116,7 +116,7 @@ export default function SignIn() {
                     </p>
                   }
                   <Button className="w-full mt-4 bg-main text-white hover:bg-black" type="submit" disabled={isLoading}>
-                    Sign in
+                    Continue <ArrowRightIcon />
                   </Button>
                 </form>
               </CardContent>

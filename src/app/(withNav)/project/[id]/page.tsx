@@ -262,28 +262,6 @@ export default function ProjectPage({ params }: PageProps) {
                       </Link>
                     </div>
                   </div>
-                  {/* <div className="flex flex-col gap-2">
-                    {
-                      project.participants.length > 0 &&
-                      <>
-                        <p className="mt-4">Paricipants :</p>
-                        <div className="grid grid-cols-3 gap-1 max-w-max">
-                        {
-                          project.participants.length !== 0 &&
-                          project.participants.map((participant, idx) => (
-                            <Link href={`/user/${participant.username}`} key={idx} className='grid gap-1 text-center'>
-                              <div className="dark:bg-[#262626] mx-auto bg-blue-600 text-white rounded-full p-1 w-8 text-center uppercase h-8">
-                                <div>{participant.initials}</div>
-                              </div>
-                              <p className='text-muted-foreground text-xs'>@{participant.username}</p>
-                              <p className='text-blue-600 text-xs'>{participant.position}</p>
-                            </Link>
-                          ))
-                        }
-                        </div>
-                      </>
-                    }
-                  </div> */}
                 </CardHeader>
                 <CardContent>
                   <Tabs defaultValue="description">
